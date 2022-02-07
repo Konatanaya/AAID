@@ -3,10 +3,7 @@ import bean
 import env
 import random
 import numpy as np
-from env import environment
-from datetime import datetime
-import networkx as nx
-import os
+import plot
 
 
 # Hyper parameters
@@ -22,6 +19,8 @@ def init_parser():
     parser.add_argument('--prob_send_msg', type=float, default=0.2)
     parser.add_argument('--k', type=int, default=5)
     parser.add_argument('--worker_num', type=int, default=4)
+    parser.add_argument('--plot',action='store_true', default=False)
+    parser.add_argument('--plot_type', type=str, default='fb')
     args = parser.parse_args()
 
     parser.print_help()
@@ -33,9 +32,13 @@ if __name__ == '__main__':
     print(args)
     np.random.seed(args.seed)
     random.seed(args.seed)
-    if args.init_dataset:
-        bean.init_dataset(args.dataset, args.topic_num)
+    if not args.plot:
+        if args.init_dataset:
+            bean.init_dataset(args.dataset, args.topic_num)
 
-    G = bean.load_network(args.dataset, args.topic_num)
-    env = env.environment(G, args)
-    env.simulation()
+        G = bean.load_network(args.dataset, args.topic_num)
+        env = env.environment(G, args)
+        env.simulation()
+    else:
+        if args.plot_type == 'fb':
+            plot.filter_bubble_line_chart(args)

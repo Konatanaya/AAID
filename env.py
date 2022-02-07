@@ -7,7 +7,7 @@ import random
 import quantification
 from message import Message
 import Workers
-from Workers import CB_Thread
+from Workers import CB_Thread, UC_Thread
 import threading
 
 DATASET = ['facebook', 'ciao_clean', 'random']
@@ -174,11 +174,19 @@ class environment:
                 threads.append(t)
             Workers.finish_threads(threads)
         if alg == 'UC':
+            all_users_count = [self.G.nodes[user]['sendCount']['total'] for user in self.G.nodes()]
+            users_count_matrix = np.concatenate(all_users_count).reshape((-1, self.topic_num))
+            similarity_matrix = users_count_matrix.dot(users_count_matrix.T) / (np.linalg.norm(users_count_matrix, axis=1).reshape(-1, 1) * np.linalg.norm(users_count_matrix, axis=1))
+            similarity_matrix[np.isneginf(similarity_matrix)] = 0
+            dim = len(self.G.nodes())
+            similarity_matrix = 0.5 + 0.5 * similarity_matrix
+            similarity_matrix[range(dim), range(dim)] = 0.
+
             threadLock = threading.Lock()
             threads = []
             for worker_id in range(self.worker_num):
                 worker_range = index_range[worker_id: worker_id + 2] if worker_id < self.worker_num - 1 else index_range[worker_id:]
-                t = CB_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation)
+                t = UC_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation, similarity_matrix)
                 t.start()
                 threads.append(t)
             Workers.finish_threads(threads)
@@ -298,9 +306,11 @@ class environment:
         if not os.path.exists("./results"):
             os.makedirs('./results/')
         filename = self.dataset + '_' + str(self.topic_num) + '_' + str(self.time_steps) + '_' + self.AI + '.txt'
-        with open('./results/' + filename, 'w', newline='') as f:
-            for v in self.filter_bubble:
-                f.write(str(v) + ' ')
+        with open('./results/' + filename, 'w') as f:
+            for l in self.filter_bubble:
+                for v in l:
+                    f.write(str(v) + ' ')
+                f.write('\n')
 
     # todo
 
