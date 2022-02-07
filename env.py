@@ -72,8 +72,8 @@ class environment:
                 fb.append(filter_bubble)
                 self.user_takes_action(user, time_step)
             execution_time = (datetime.datetime.now() - start).seconds
-            self.filter_bubble.append(np.average(fb))
-            print("Time step: %d | Execution time: %ds | Avg. FB: %f" % (time_step, execution_time, self.filter_bubble[-1]))
+            self.filter_bubble.append([np.min(fb), np.average(fb), np.max(fb)])
+            print("Time step: %d | Execution time: %ds | Avg. FB: %f" % (time_step, execution_time, self.filter_bubble[-1][1]))
         self.save_result()
         # self.plot_result(time_steps)
 
