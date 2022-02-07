@@ -1,12 +1,8 @@
 import math
-
 import numpy as np
 import datetime
 from matplotlib import pyplot as plt
-import time
-import pickle
-import csv
-import bean
+import os
 import random
 import quantification
 from message import Message
@@ -299,6 +295,8 @@ class environment:
 
     # change to txt
     def save_result(self):
+        if not os.path.exists("./results"):
+            os.makedirs('./results/')
         filename = self.dataset + '_' + str(self.topic_num) + '_' + str(self.time_steps) + '_' + self.AI + '.txt'
         with open('./results/' + filename, 'w', newline='') as f:
             for v in self.filter_bubble:
