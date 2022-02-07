@@ -11,7 +11,7 @@ import random
 import quantification
 from message import Message
 import Workers
-from Workers import CB_Thread, CB_Worker
+from Workers import CB_Thread
 import threading
 
 DATASET = ['facebook', 'ciao_clean', 'random']
