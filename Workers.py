@@ -107,7 +107,6 @@ class CB_Worker(mp.Process):
             block = self.inQ.get()
             index_range = block[0]
             time_step = block[1]
-            print(index_range)
             topic_num = len(self.topic_correlation[0])
             user_ids = [self.index_id[i] for i in range(index_range[0], index_range[1])]
             all_users_count = [self.G.nodes[user]['sendCount']['total'] for user in user_ids]
