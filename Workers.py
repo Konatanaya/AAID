@@ -5,7 +5,7 @@ worker = []
 
 
 class CB_Thread(threading.Thread):
-    def __init__(self, thread_lock, G, topic_correlation, msg_list, index_id, index_range, time_step, recommendation):
+    def __init__(self, thread_lock, G, topic_correlation, msg_list, index_id, index_range, time_step, recommendation, k):
         super(CB_Thread, self).__init__()
         self.G = G
         self.topic_correlation = topic_correlation
@@ -14,6 +14,7 @@ class CB_Thread(threading.Thread):
         self.index_range = index_range
         self.time_step = time_step
         self.recommendation = recommendation
+        self.k = k
         self.lock = thread_lock
 
     def run(self):
@@ -32,7 +33,7 @@ class CB_Thread(threading.Thread):
             user_msg_index = [ind for ind, msg in enumerate(self.msg_list) if msg.sender == user]
             if len(user_msg_index) > 0:
                 score[index][user_msg_index] = 0.
-            msg_index = np.argpartition(score[index], -topic_num)[-topic_num:]
+            msg_index = np.argpartition(score[index], -self.k)[-self.k:]
             # self.recommendation_score_index = {user:  for index, user in enumerate(self.G.nodes())}
             recommendation_list = [self.msg_list[ind] for ind in msg_index]
             self.G.nodes[user]['receiveList'][time_step - 1] += recommendation_list
@@ -45,7 +46,7 @@ class CB_Thread(threading.Thread):
 
 
 class UC_Thread(threading.Thread):
-    def __init__(self, thread_lock, G, topic_correlation, msg_list, index_id, index_range, time_step, recommendation, similarity_matrix):
+    def __init__(self, thread_lock, G, topic_correlation, msg_list, index_id, index_range, time_step, recommendation, k, similarity_matrix):
         super(UC_Thread, self).__init__()
         self.G = G
         self.topic_correlation = topic_correlation
@@ -54,6 +55,7 @@ class UC_Thread(threading.Thread):
         self.index_range = index_range
         self.time_step = time_step
         self.recommendation = recommendation
+        self.k = k
         self.lock = thread_lock
         self.similarity_matrix = similarity_matrix
 

@@ -169,7 +169,7 @@ class environment:
             threads = []
             for worker_id in range(self.worker_num):
                 worker_range = index_range[worker_id: worker_id + 2] if worker_id < self.worker_num - 1 else index_range[worker_id:]
-                t = CB_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation)
+                t = CB_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation, self.k)
                 t.start()
                 threads.append(t)
             Workers.finish_threads(threads)
@@ -186,50 +186,10 @@ class environment:
             threads = []
             for worker_id in range(self.worker_num):
                 worker_range = index_range[worker_id: worker_id + 2] if worker_id < self.worker_num - 1 else index_range[worker_id:]
-                t = UC_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation, similarity_matrix)
+                t = UC_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation, self.k, similarity_matrix)
                 t.start()
                 threads.append(t)
             Workers.finish_threads(threads)
-
-    # def generate_recommendation(self, user, msg_list, time_step):
-    # print(user)
-
-    # for index, user in enumerate(self.G.nodes()):
-    #     msg_index = np.argpartition(score[index], -self.topic_num)[-self.topic_num:]
-    #
-    #     # pass
-
-    # correlation_std = (sum_count.dot((correlation_matrix - correlation_avg) ** 2) / np.sum(sum_count)) ** 1 / 2
-    # sim_dict = {msg:sim for msg,sim in zip(msg_list, correlation_std)}
-
-    # sorted_sim_pairs = sorted(sim_dict.items(), key=lambda v: v[1], reverse=True)
-    # recommendation_list = [sorted_sim_pairs[index][0] for index in range(self.k)]
-
-    # for msg in self.sendList_total[time_step - 1]:
-    #     if msg.sender == user:
-    #         continue
-    #     else:
-    #         # user_sendlist = [send[0] for t, send in self.G.nodes[msg.sender]['sendList'].items()]
-    #         if alg == "user-cf":
-    #             # focal_user_sendlist_set = set(focal_user_sendlist)
-    #             # user_sendlist_set = set(user_sendlist)
-    #             user_count = np.sum(self.G.nodes[msg.sender]['sendCount'][time_step - 1])
-    #             topic_count = np.sum(self.G.nodes[msg.sender]['sendCount'][time_step - 1])
-    #             focal_user_topic_count = np.sum(self.G.nodes[user]['sendCount'][time_step - 1])
-    #             # jaccard similarity
-    #             similarity = self.preference_similarity(self.G.nodes[user]['preference'], self.G.nodes[msg.sender]['preference']) * \
-    #                          (focal_user_topic_count + topic_count) / (user_count + focal_user_count)
-    #             # similarity = len((focal_user_sendlist_set & user_sendlist_set)) / len((focal_user_sendlist_set | user_sendlist_set))
-    #         elif alg == "content-based":
-    #             correlation_vec = np.std(np.array([self.topic_correlation[msg.topic, m.topic] for m in focal_user_sendlist]))
-    #             similarity = correlation_vec
-    #         sim_dict[msg] = similarity
-    # sorted_sim_pairs = sorted(sim_dict.items(), key=lambda v: v[1], reverse=True)
-    # recommendation_list = [sorted_sim_pairs[index][0] for index in range(self.k)]
-    # self.G.nodes[user]['receiveList'][time_step - 1] += recommendation_list
-    # for msg in recommendation_list:
-    #     self.G.nodes[user]['receiveCount'][time_step - 1][msg.topic] += 1
-    # self.recommendation[time_step] += recommendation_list
 
     # IP = lambda * PIP + (1-lambda) * VIP
     def calculate_IP(self, PIP, VIP):
@@ -305,14 +265,12 @@ class environment:
     def save_result(self):
         if not os.path.exists("./results"):
             os.makedirs('./results/')
-        filename = self.dataset + '_' + str(self.topic_num) + '_' + str(self.time_steps) + '_' + self.AI + '.txt'
+        filename = self.dataset + '_' + str(self.topic_num) + '_' + str(self.time_steps) + '_' + self.AI + '_' + str(self.k) + '.txt'
         with open('./results/' + filename, 'w') as f:
             for l in self.filter_bubble:
                 for v in l:
                     f.write(str(v) + ' ')
                 f.write('\n')
-
-    # todo
 
 
 def plot_result():

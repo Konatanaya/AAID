@@ -42,3 +42,4 @@ if __name__ == '__main__':
     else:
         if args.plot_type == 'fb':
             plot.filter_bubble_line_chart(args)
+            plot.filter_bubble_line_chart_diff_k(args)
