@@ -20,6 +20,7 @@ def init_parser():
     parser.add_argument('--k', type=int, default=5)
     parser.add_argument('--worker_num', type=int, default=4)
     parser.add_argument('--plot',action='store_true', default=False)
+    parser.add_argument('--multi_thread',action='store_true', default=False)
     parser.add_argument('--plot_type', type=str, default='fb')
     args = parser.parse_args()
 

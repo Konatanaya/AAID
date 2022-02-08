@@ -31,6 +31,7 @@ class environment:
         self.time_steps = args.time_steps
         self.worker_num = args.worker_num
 
+        self.multi_thread = args.multi_thread
         self.topic_correlation = self.init_topic_correlation()
 
         self.recommendation = None  # time_step:[msg]
@@ -163,33 +164,56 @@ class environment:
         index_range = [math.floor(len(self.G.nodes()) / self.worker_num) * i for i in range(self.worker_num)] + [len(self.G.nodes())]
         msg_list = self.sendList_total[time_step - 1]
         random.shuffle(msg_list)
-        if alg == 'CB':
-            # multi-threads
-            threadLock = threading.Lock()
-            threads = []
-            for worker_id in range(self.worker_num):
-                worker_range = index_range[worker_id: worker_id + 2] if worker_id < self.worker_num - 1 else index_range[worker_id:]
-                t = CB_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation, self.k)
-                t.start()
-                threads.append(t)
-            Workers.finish_threads(threads)
-        if alg == 'UC':
-            all_users_count = [self.G.nodes[user]['sendCount']['total'] for user in self.G.nodes()]
-            users_count_matrix = np.concatenate(all_users_count).reshape((-1, self.topic_num))
-            similarity_matrix = users_count_matrix.dot(users_count_matrix.T) / (np.linalg.norm(users_count_matrix, axis=1).reshape(-1, 1) * np.linalg.norm(users_count_matrix, axis=1))
-            similarity_matrix[np.isneginf(similarity_matrix)] = 0
-            dim = len(self.G.nodes())
-            similarity_matrix = 0.5 + 0.5 * similarity_matrix
-            similarity_matrix[range(dim), range(dim)] = 0.
+        if self.multi_thread:
+            if alg == 'CB':
+                # multi-threads
+                threadLock = threading.Lock()
+                threads = []
+                for worker_id in range(self.worker_num):
+                    worker_range = index_range[worker_id: worker_id + 2] if worker_id < self.worker_num - 1 else index_range[worker_id:]
+                    t = CB_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation, self.k)
+                    t.start()
+                    threads.append(t)
+                Workers.finish_threads(threads)
+            if alg == 'UC':
+                all_users_count = [self.G.nodes[user]['sendCount']['total'] for user in self.G.nodes()]
+                users_count_matrix = np.concatenate(all_users_count).reshape((-1, self.topic_num))
+                similarity_matrix = users_count_matrix.dot(users_count_matrix.T) / (np.linalg.norm(users_count_matrix, axis=1).reshape(-1, 1) * np.linalg.norm(users_count_matrix, axis=1))
+                similarity_matrix[np.isneginf(similarity_matrix)] = 0
+                dim = len(self.G.nodes())
+                similarity_matrix = 0.5 + 0.5 * similarity_matrix
+                similarity_matrix[range(dim), range(dim)] = 0.
 
-            threadLock = threading.Lock()
-            threads = []
-            for worker_id in range(self.worker_num):
-                worker_range = index_range[worker_id: worker_id + 2] if worker_id < self.worker_num - 1 else index_range[worker_id:]
-                t = UC_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation, self.k, similarity_matrix)
-                t.start()
-                threads.append(t)
-            Workers.finish_threads(threads)
+                threadLock = threading.Lock()
+                threads = []
+                for worker_id in range(self.worker_num):
+                    worker_range = index_range[worker_id: worker_id + 2] if worker_id < self.worker_num - 1 else index_range[worker_id:]
+                    t = UC_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation, self.k, similarity_matrix)
+                    t.start()
+                    threads.append(t)
+                Workers.finish_threads(threads)
+        else:
+            # multi-processes
+            if alg == 'CB':
+                workers = Workers.create_CB_workers(self.worker_num, self.G, self.topic_correlation, msg_list, self.index_id)
+                # allocate workers
+                for worker_id in range(self.worker_num):
+                    worker_range = index_range[worker_id: worker_id + 2] if worker_id < self.worker_num - 1 else index_range[worker_id:]
+                    workers[worker_id].inQ.put((worker_range, time_step))
+                for w in workers:
+                    recommendation_list = w.outQ.get()
+                    self.recommendation[time_step] += recommendation_list
+                Workers.finish_worker(workers)
+
+            # for index, user in enumerate(self.G.nodes()):
+            #     msg_index = np.argpartition(score[index], -self.topic_num)[-self.topic_num:]
+            #     # self.recommendation_score_index = {user:  for index, user in enumerate(self.G.nodes())}
+            #     recommendation_list = [msg_list[ind] for ind in msg_index]
+            #     self.G.nodes[user]['receiveList'][time_step - 1] += recommendation_list
+            #     for msg in recommendation_list:
+            #         self.G.nodes[user]['receiveCount'][time_step - 1][msg.topic] += 1
+            #     self.recommendation[time_step] += recommendation_list
+
 
     # IP = lambda * PIP + (1-lambda) * VIP
     def calculate_IP(self, PIP, VIP):
