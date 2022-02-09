@@ -270,10 +270,10 @@ class environment:
         # print(VIP_vec)
         IP = [self.calculate_IP(v[0], v[1]) for index, v in enumerate(zip(PIP_vec, VIP_vec))]
         topic_list = []
-        rand = random.random()
+        # rand = random.random()
         # topic_list = [msg.topic for msg in self.G.nodes[user]['receiveList'][time_step - 1] if rand < IP[msg.topic]]
         for index, ip in enumerate(IP):
-            if rand < ip:
+            if random.random() < ip:
                 topic_list.append(index)
         return topic_list
 
