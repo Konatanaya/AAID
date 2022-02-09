@@ -29,14 +29,9 @@ def quantify_echo_chamber(G, user, time_step,topic_num):
     Q = 0.
     if time_step > 0:
         user_pre = G.nodes[user]['preference']
-        # user_receive_count = G.nodes[user]['receiveCount'][time_step-1]
-        # Q = np.dot(user_pre, user_receive_count.T)
         neighbors = set([msg.sender for msg in G.nodes[user]['receiveList'][time_step - 1]])
         if len(neighbors) > 0:
-            # Q_list = [np.linalg.norm(user_pre-G.nodes[u]['preference']) for u in list(neighbors)]
             neighbors_pre = np.array([G.nodes[u]['preference'] for u in list(neighbors)]).reshape(-1, len(user_pre))
-            # Q = np.linalg.norm(neighbors_pre-user_pre,axis=1)
-            # sim_matrix = np.corrcoef(user_pre, neighbors_pre)
             Q = user_pre.dot(neighbors_pre.T) / (np.linalg.norm(user_pre) * np.linalg.norm(neighbors_pre, axis=1))
             Q = np.average(Q)
 
