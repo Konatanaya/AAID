@@ -118,8 +118,8 @@ class environment:
             # Check if the user agent is influenced by its in-neighbors
             topics = self.calculate_influence(user, time_step)
             # if random.random() < 1:
-            # topics += [np.argmax(self.G.nodes[user]['preference'])]
-            topics += list(np.random.choice(np.arange(self.topic_num), p=self.G.nodes[user]['preference'], size=1))
+            topics += [np.argmax(self.G.nodes[user]['preference'])]
+            # topics += list(np.random.choice(np.arange(self.topic_num), p=self.G.nodes[user]['preference'], size=1))
 
 
         # create the msg
@@ -140,31 +140,8 @@ class environment:
             for msg in msgs:
                 self.G.nodes[neighbor]['receiveCount'][time_step][msg.topic] += 1
         if time_step > 0:
-            # self.update_preference(user, time_step)
             self.G.nodes[user]['preference'] = self.G.nodes[user]['sendCount']['total'] / np.sum(self.G.nodes[user]['sendCount']['total'])
 
-    def update_preference(self, user, time_step):
-    # self.G.nodes[user]['preference'] = self.G.nodes[user]['sendCount']['total']/np.sum(self.G.nodes[user]['sendCount']['total'])
-
-        for topic in range(self.topic_num):
-            r_t_ = self.G.nodes[user]['preference'][topic]
-            total_count_t = self.G.nodes[user]['sendCount'][time_step][topic]
-            total_count_t_1 = self.G.nodes[user]['sendCount'][time_step - 1][topic]
-            count_diff = total_count_t - total_count_t_1
-            count_sum = total_count_t + total_count_t_1
-            if count_sum == 0:
-                count_sum = 1
-            if count_diff > 0:
-                r_t = r_t_ + ((1-r_t_)/2) * (np.abs(count_diff) / count_sum)
-            else:
-                r_t = r_t_ - (r_t_/2) * (np.abs(count_diff) / count_sum)
-            # else:
-            #     if count_diff > 0:
-            #         r_t = r_t_ * (1 + count_diff / count_sum)
-            #         if r_t > 1: r_t = 1
-            #     else:
-            #         r_t = r_t_ * (1 - count_diff / count_sum)
-            self.G.nodes[user]['preference'][topic] = r_t
 
     def calculate_sum_of_dict(self, dict):
         return np.sum([np.sum(v) for k, v in dict.items()])
