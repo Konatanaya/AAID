@@ -13,7 +13,7 @@ def init_parser():
     parser.add_argument('--topic_num', type=int, default=5)
     parser.add_argument('--init_dataset', action='store_true', default=False)
     parser.add_argument('--seed', type=int, default=321)
-    parser.add_argument('--time_steps', type=int, default=10)
+    parser.add_argument('--time_steps', type=int, default=200)
     parser.add_argument('--AI', type=str, default="None")
     parser.add_argument('--LAMBDA', type=float, default=0.5)
     parser.add_argument('--prob_send_msg', type=float, default=0.2)
