@@ -118,8 +118,8 @@ class environment:
             # Check if the user agent is influenced by its in-neighbors
             topics = self.calculate_influence(user, time_step)
             # if random.random() < 1:
-            topics += [np.argmax(self.G.nodes[user]['preference'])]
-            # topics += list(np.random.choice(np.arange(self.topic_num), p=self.G.nodes[user]['preference'], size=1))
+            # topics += [np.argmax(self.G.nodes[user]['preference'])]
+            topics += list(np.random.choice(np.arange(self.topic_num), p=self.G.nodes[user]['preference'], size=1))
 
 
         # create the msg

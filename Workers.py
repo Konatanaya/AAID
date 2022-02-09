@@ -207,7 +207,7 @@ def create_CB_workers(num, G, topic_correlation, msg_list, k, index_id):
 def create_UC_workers(num, G, topic_correlation, msg_list, k, index_id):
     worker = []
     for i in range(num):
-        worker.append(CB_Worker(mp.Queue(), mp.Queue(), G, topic_correlation, msg_list, k, index_id))
+        worker.append(UC_Worker(mp.Queue(), mp.Queue(), G, topic_correlation, msg_list, k, index_id))
         worker[i].start()
     return worker
 
