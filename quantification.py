@@ -26,7 +26,7 @@ def quantify_filter_bubble(G, user, topic_num):
 
 
 def quantify_echo_chamber(G, user, time_step,topic_num):
-    Q = 0
+    Q = 0.
     if time_step > 0:
         user_pre = G.nodes[user]['preference']
         # user_receive_count = G.nodes[user]['receiveCount'][time_step-1]
