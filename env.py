@@ -42,7 +42,7 @@ class environment:
         self.recommendation_score_index = None
 
         # result
-        self.filter_bubble = None
+        self.results = []
         self.init()
 
     def init(self):
@@ -52,7 +52,6 @@ class environment:
         self.index_id = {index: user for index, user in enumerate(self.G.nodes())}
 
         # self.filter_bubble = {user: [] for user in self.G.nodes()}
-        self.filter_bubble = []
 
     def init_topic_correlation(self):
         dim = self.topic_num
@@ -68,13 +67,18 @@ class environment:
             if time_step > 0:
                 self.init_recommendation(time_step, alg=self.AI)
             fb = []
+            ec = []
             for user in self.G.nodes():
                 filter_bubble = quantification.quantify_filter_bubble(self.G, user, self.topic_num)
                 fb.append(filter_bubble)
+                echo_chamber = quantification.quantify_echo_chamber(self.G, user, time_step, self.topic_num)
+                ec.append(echo_chamber)
                 self.user_takes_action(user, time_step)
             execution_time = (datetime.datetime.now() - start).seconds
-            self.filter_bubble.append([np.min(fb), np.average(fb), np.max(fb)])
-            print("Time step: %d | Execution time: %ds | Avg. FB: %f" % (time_step, execution_time, self.filter_bubble[-1][1]))
+            result = [np.average(fb), np.average(ec)]
+            # result = [np.average(fb), quantification.quantify_echo_chamber(self.G)]
+            self.results.append(result)
+            print("Time step: %d | Execution time: %ds | Avg. FB: %f | Avg. EC: %f" % (time_step, execution_time, result[0], result[1]))
         self.save_result()
         # self.plot_result(time_steps)
 
@@ -96,7 +100,7 @@ class environment:
         if time_step not in self.G.nodes[user]['sendList']:  # initialize the sending repository
             self.G.nodes[user]['sendList'][time_step] = []
         if 'total' not in self.G.nodes[user]['sendCount']:
-            self.G.nodes[user]['sendCount']['total'] = np.zeros(self.topic_num)
+            self.G.nodes[user]['sendCount']['total'] = np.ones(self.topic_num)
         if time_step not in self.G.nodes[user]['sendCount']:
             self.G.nodes[user]['sendCount'][time_step] = np.zeros(self.topic_num)
         if time_step not in self.G.nodes[user]['receiveCount']:
@@ -105,12 +109,14 @@ class environment:
         # The user agent would choose its favorite topic at time step 0
         topics = []
         if time_step == 0:
-            topics = [np.argmax(self.G.nodes[user]['preference'])]
+            topics = np.random.choice(np.arange(self.topic_num), p=self.G.nodes[user]['preference'], size=1)
+            # topics = [np.argmax(self.G.nodes[user]['preference'])]
         else:
             # Check if the user agent is influenced by its in-neighbors
             topics = self.calculate_influence(user, time_step)
             # if random.random() < 1:
-            topics += [np.argmax(self.G.nodes[user]['preference'])]
+            # topics += [np.argmax(self.G.nodes[user]['preference'])]
+            topics += list(np.random.choice(np.arange(self.topic_num), p=self.G.nodes[user]['preference'], size=1))
 
         # create the msg
         msgs = [Message(topic, user, time_step) for topic in topics]
@@ -130,28 +136,30 @@ class environment:
             for msg in msgs:
                 self.G.nodes[neighbor]['receiveCount'][time_step][msg.topic] += 1
         if time_step > 0:
-            self.update_preference(user, time_step)
+            # self.update_preference(user, time_step)
+            self.G.nodes[user]['preference'] = self.G.nodes[user]['sendCount']['total'] / np.sum(self.G.nodes[user]['sendCount']['total'])
 
     def update_preference(self, user, time_step):
+    # self.G.nodes[user]['preference'] = self.G.nodes[user]['sendCount']['total']/np.sum(self.G.nodes[user]['sendCount']['total'])
+
         for topic in range(self.topic_num):
             r_t_ = self.G.nodes[user]['preference'][topic]
             total_count_t = self.G.nodes[user]['sendCount'][time_step][topic]
             total_count_t_1 = self.G.nodes[user]['sendCount'][time_step - 1][topic]
-            count_diff = np.abs(total_count_t - total_count_t_1)
+            count_diff = total_count_t - total_count_t_1
             count_sum = total_count_t + total_count_t_1
             if count_sum == 0:
                 count_sum = 1
-            if r_t_ < 0.5:
-                if count_diff > 0:
-                    r_t = r_t_ * (1 - count_diff / count_sum)
-                else:
-                    r_t = r_t_ * (1 + count_diff / count_sum)
+            if count_diff > 0:
+                r_t = r_t_ + ((1-r_t_)/2) * (np.abs(count_diff) / count_sum)
             else:
-                if count_diff > 0:
-                    r_t = r_t_ * (1 + count_diff / count_sum)
-                    if r_t > 1: r_t = 1
-                else:
-                    r_t = r_t_ * (1 - count_diff / count_sum)
+                r_t = r_t_ - (r_t_/2) * (np.abs(count_diff) / count_sum)
+            # else:
+            #     if count_diff > 0:
+            #         r_t = r_t_ * (1 + count_diff / count_sum)
+            #         if r_t > 1: r_t = 1
+            #     else:
+            #         r_t = r_t_ * (1 - count_diff / count_sum)
             self.G.nodes[user]['preference'][topic] = r_t
 
     def calculate_sum_of_dict(self, dict):
@@ -176,19 +184,19 @@ class environment:
                     threads.append(t)
                 Workers.finish_threads(threads)
             if alg == 'UC':
-                all_users_count = [self.G.nodes[user]['sendCount']['total'] for user in self.G.nodes()]
-                users_count_matrix = np.concatenate(all_users_count).reshape((-1, self.topic_num))
-                similarity_matrix = users_count_matrix.dot(users_count_matrix.T) / (np.linalg.norm(users_count_matrix, axis=1).reshape(-1, 1) * np.linalg.norm(users_count_matrix, axis=1))
-                similarity_matrix[np.isneginf(similarity_matrix)] = 0
-                dim = len(self.G.nodes())
-                similarity_matrix = 0.5 + 0.5 * similarity_matrix
-                similarity_matrix[range(dim), range(dim)] = 0.
+                # all_users_pre = [self.G.nodes[user]['preference'] for user in self.G.nodes()]
+                # users_pre_matrix = np.concatenate(all_users_pre).reshape((-1, self.topic_num))
+                # similarity_matrix = users_pre_matrix.dot(users_pre_matrix.T) / (np.linalg.norm(users_pre_matrix, axis=1).reshape(-1, 1) * np.linalg.norm(users_pre_matrix, axis=1))
+                # similarity_matrix[np.isneginf(similarity_matrix)] = 0
+                # dim = len(self.G.nodes())
+                # # similarity_matrix = similarity_matrix
+                # similarity_matrix[range(dim), range(dim)] = 0.
 
                 threadLock = threading.Lock()
                 threads = []
                 for worker_id in range(self.worker_num):
                     worker_range = index_range[worker_id: worker_id + 2] if worker_id < self.worker_num - 1 else index_range[worker_id:]
-                    t = UC_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation, self.k, similarity_matrix)
+                    t = UC_Thread(threadLock, self.G, self.topic_correlation, msg_list, self.index_id, worker_range, time_step, self.recommendation, self.k)
                     t.start()
                     threads.append(t)
                 Workers.finish_threads(threads)
@@ -213,7 +221,6 @@ class environment:
             #     for msg in recommendation_list:
             #         self.G.nodes[user]['receiveCount'][time_step - 1][msg.topic] += 1
             #     self.recommendation[time_step] += recommendation_list
-
 
     # IP = lambda * PIP + (1-lambda) * VIP
     def calculate_IP(self, PIP, VIP):
@@ -279,9 +286,10 @@ class environment:
         # print(VIP_vec)
         IP = [self.calculate_IP(v[0], v[1]) for index, v in enumerate(zip(PIP_vec, VIP_vec))]
         topic_list = []
-        # rand = random.random()
+        rand = random.random()
+        # topic_list = [msg.topic for msg in self.G.nodes[user]['receiveList'][time_step - 1] if rand < IP[msg.topic]]
         for index, ip in enumerate(IP):
-            if random.random() < ip:
+            if rand < ip:
                 topic_list.append(index)
         return topic_list
 
@@ -291,28 +299,7 @@ class environment:
             os.makedirs('./results/')
         filename = self.dataset + '_' + str(self.topic_num) + '_' + str(self.time_steps) + '_' + self.AI + '_' + str(self.k) + '.txt'
         with open('./results/' + filename, 'w') as f:
-            for l in self.filter_bubble:
+            for l in self.results:
                 for v in l:
                     f.write(str(v) + ' ')
                 f.write('\n')
-
-
-def plot_result():
-    filename = './result/twitter_5_1000_CB.txt'
-    data1 = np.loadtxt('./result/twitter_5_1000_CB.txt', delimiter=',')
-    data1 = np.average(data1, axis=0)
-    data2 = np.loadtxt('./result/twitter_5_1000_None.txt', delimiter=',')
-    data2 = np.average(data2, axis=0)
-
-    plt.figure()
-    plt.plot(data1)
-    plt.plot(data2)
-    plt.show()
-    # with open(filename, 'r') as f:
-    #     for line in f.readlines():
-    #         line = line.strip().split(',')
-    #         print(line)
-
-
-if __name__ == '__main__':
-    plot_result()

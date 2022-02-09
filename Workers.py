@@ -31,6 +31,7 @@ class CB_Thread(threading.Thread):
 
         recommendation_list = []
         for index, user in enumerate(user_ids):
+            # score = np.array([score_[index][msg_index] * self.G.nodes[user]['preference'][msg.topic] for msg_index, msg in enumerate(self.msg_list)])
             user_msg_index = [ind for ind, msg in enumerate(self.msg_list) if msg.sender == user]
             if len(user_msg_index) > 0:
                 score[index][user_msg_index] = 0.
@@ -47,7 +48,7 @@ class CB_Thread(threading.Thread):
 
 
 class UC_Thread(threading.Thread):
-    def __init__(self, thread_lock, G, topic_correlation, msg_list, index_id, index_range, time_step, recommendation, k, similarity_matrix):
+    def __init__(self, thread_lock, G, topic_correlation, msg_list, index_id, index_range, time_step, recommendation, k, similarity_matrix=None):
         super(UC_Thread, self).__init__()
         self.G = G
         self.topic_correlation = topic_correlation
@@ -57,24 +58,30 @@ class UC_Thread(threading.Thread):
         self.time_step = time_step
         self.recommendation = recommendation
         self.k = k
-        self.lock = thread_lock
         self.similarity_matrix = similarity_matrix
+
+        self.lock = thread_lock
 
     def run(self):
         index_range = self.index_range
         time_step = self.time_step
         topic_num = len(self.topic_correlation[0])
-        id_index = {ID: index for index, ID in self.index_id.items()}
         user_ids = [self.index_id[i] for i in range(index_range[0], index_range[1])]
+        id_index = {ID: index for index, ID in self.index_id.items()}
+
+        users_pre_matrix = np.array([self.G.nodes[user]['preference'] for user in user_ids]).reshape((-1, topic_num))
+        all_users_pre_matrix = np.array([self.G.nodes[user]['preference'] for user in self.G.nodes()]).reshape((-1, topic_num))
+        similarity_matrix = users_pre_matrix.dot(all_users_pre_matrix.T) / (np.linalg.norm(users_pre_matrix, axis=1).reshape(-1, 1) * np.linalg.norm(all_users_pre_matrix, axis=1))
+        similarity_matrix[np.isneginf(similarity_matrix)] = 0
 
         recommendation_list = []
         for index, user in enumerate(user_ids):
-            score = np.array([self.similarity_matrix[id_index[user], id_index[msg.sender]] * self.G.nodes[user]['preference'][msg.topic] for msg in self.msg_list])
+            score = np.array([similarity_matrix[index, id_index[msg.sender]] * self.G.nodes[user]['preference'][msg.topic] for msg in self.msg_list])
             user_msg_index = [ind for ind, msg in enumerate(self.msg_list) if msg.sender == user]
             if len(user_msg_index) > 0:
                 score[user_msg_index] = 0.
 
-            msg_index = np.argpartition(score, -topic_num)[-topic_num:]
+            msg_index = np.argpartition(score, -self.k)[-self.k:]
             # self.recommendation_score_index = {user:  for index, user in enumerate(self.G.nodes())}
             recommendation_list = [self.msg_list[ind] for ind in msg_index]
             self.G.nodes[user]['receiveList'][time_step - 1] += recommendation_list
@@ -141,8 +148,11 @@ def finish_worker(worker):
 
 
 if __name__ == '__main__':
-    a = np.random.random((10))
-    b = [1, 3]
-    print(a)
-    a[b] = 0
-    print(a)
+    a = np.array([[2,3],
+                  [3,4],
+                  [1,3.5]])
+    b = np.array([1,1])
+    print(a-b)
+    print(np.linalg.norm(a-b, axis=1))
+    # b = np.array([[1,1,1.2], [1,2,3], [1,3,2]])
+

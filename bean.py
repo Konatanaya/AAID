@@ -22,7 +22,7 @@ def generate_network(file_path, TOPIC):
 
     for u in G.nodes():
         node_dic[u] = {
-            'preference': np.random.random(TOPIC),
+            'preference': np.ones(TOPIC)/TOPIC,
             'sendList': {},  # action
             'sendCount': {},
             'receiveList': {},

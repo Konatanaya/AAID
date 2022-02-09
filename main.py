@@ -17,7 +17,7 @@ def init_parser():
     parser.add_argument('--AI', type=str, default="None")
     parser.add_argument('--LAMBDA', type=float, default=0.5)
     parser.add_argument('--prob_send_msg', type=float, default=0.2)
-    parser.add_argument('--k', type=int, default=5)
+    parser.add_argument('--k', type=int, default=10)
     parser.add_argument('--worker_num', type=int, default=4)
     parser.add_argument('--plot',action='store_true', default=False)
     parser.add_argument('--multi_thread',action='store_true', default=False)
@@ -42,5 +42,5 @@ if __name__ == '__main__':
         env.simulation()
     else:
         if args.plot_type == 'fb':
-            plot.filter_bubble_line_chart(args)
-            plot.filter_bubble_line_chart_diff_k(args)
+            plot.line_chart(args)
+            plot.line_chart_diff_k(args)
