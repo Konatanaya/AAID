@@ -1022,3 +1022,607 @@ Time step: 996 | Execution time: 40s | Avg. FB: 1.563668
 Time step: 997 | Execution time: 37s | Avg. FB: 1.563671
 Time step: 998 | Execution time: 40s | Avg. FB: 1.563673
 Time step: 999 | Execution time: 39s | Avg. FB: 1.563669
+usage: main.py [-h] [--dataset DATASET] [--topic_num TOPIC_NUM]
+               [--init_dataset] [--seed SEED] [--time_steps TIME_STEPS]
+               [--AI AI] [--LAMBDA LAMBDA] [--prob_send_msg PROB_SEND_MSG]
+               [--k K] [--worker_num WORKER_NUM] [--plot] [--multi_thread]
+               [--plot_type PLOT_TYPE]
+
+Hyper Parameters
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset DATASET
+  --topic_num TOPIC_NUM
+  --init_dataset
+  --seed SEED
+  --time_steps TIME_STEPS
+  --AI AI
+  --LAMBDA LAMBDA
+  --prob_send_msg PROB_SEND_MSG
+  --k K
+  --worker_num WORKER_NUM
+  --plot
+  --multi_thread
+  --plot_type PLOT_TYPE
+Namespace(AI='None', LAMBDA=0.5, dataset='ciao_clean', init_dataset=True, k=10, multi_thread=False, plot=False, plot_type='fb', prob_send_msg=0.2, seed=4869, time_steps=200, topic_num=5, worker_num=10)
+Name: 
+Type: DiGraph
+Number of nodes: 18998
+Number of edges: 145528
+Average in degree:   7.6602
+Average out degree:   7.6602
+Time step: 0 | Execution time: 3s | Avg. FB: 0.517553 | Avg. EC: 0.000000
+Time step: 1 | Execution time: 7s | Avg. FB: 1.348674 | Avg. EC: 0.947969
+Time step: 2 | Execution time: 7s | Avg. FB: 1.422500 | Avg. EC: 0.920509
+Time step: 3 | Execution time: 7s | Avg. FB: 1.450670 | Avg. EC: 0.916758
+Time step: 4 | Execution time: 7s | Avg. FB: 1.463375 | Avg. EC: 0.915114
+Time step: 5 | Execution time: 8s | Avg. FB: 1.469618 | Avg. EC: 0.914661
+Time step: 6 | Execution time: 7s | Avg. FB: 1.474687 | Avg. EC: 0.914885
+Time step: 7 | Execution time: 7s | Avg. FB: 1.479764 | Avg. EC: 0.915325
+Time step: 8 | Execution time: 8s | Avg. FB: 1.481910 | Avg. EC: 0.915504
+Time step: 9 | Execution time: 7s | Avg. FB: 1.483484 | Avg. EC: 0.915518
+Time step: 10 | Execution time: 7s | Avg. FB: 1.485124 | Avg. EC: 0.915762
+Time step: 11 | Execution time: 8s | Avg. FB: 1.485576 | Avg. EC: 0.915772
+Time step: 12 | Execution time: 7s | Avg. FB: 1.486541 | Avg. EC: 0.916060
+Time step: 13 | Execution time: 7s | Avg. FB: 1.487349 | Avg. EC: 0.916298
+Time step: 14 | Execution time: 9s | Avg. FB: 1.488030 | Avg. EC: 0.916522
+Time step: 15 | Execution time: 7s | Avg. FB: 1.488596 | Avg. EC: 0.916885
+Time step: 16 | Execution time: 7s | Avg. FB: 1.488672 | Avg. EC: 0.917060
+Time step: 17 | Execution time: 7s | Avg. FB: 1.489025 | Avg. EC: 0.917213
+Time step: 18 | Execution time: 9s | Avg. FB: 1.488911 | Avg. EC: 0.917171
+Time step: 19 | Execution time: 7s | Avg. FB: 1.489537 | Avg. EC: 0.917284
+Time step: 20 | Execution time: 7s | Avg. FB: 1.489585 | Avg. EC: 0.917378
+Time step: 21 | Execution time: 7s | Avg. FB: 1.490199 | Avg. EC: 0.917609
+Time step: 22 | Execution time: 6s | Avg. FB: 1.490417 | Avg. EC: 0.917689
+Traceback (most recent call last):
+  File "main.py", line 42, in <module>
+    env.simulation()
+  File "/home/shiqingw/AAID/env.py", line 79, in simulation
+    self.user_takes_action(user, time_step)
+  File "/home/shiqingw/AAID/env.py", line 119, in user_takes_action
+    topics = self.calculate_influence(user, time_step)
+  File "/home/shiqingw/AAID/env.py", line 246, in calculate_influence
+    user_receive_set = set(self.G.nodes[user]['receiveList'][time_step - 1])
+  File "/home/shiqingw/AAID/message.py", line 16, in __hash__
+    data = str(self.topic) + str(self.sender)
+KeyboardInterrupt
+usage: main.py [-h] [--dataset DATASET] [--topic_num TOPIC_NUM]
+               [--init_dataset] [--seed SEED] [--time_steps TIME_STEPS]
+               [--AI AI] [--LAMBDA LAMBDA] [--prob_send_msg PROB_SEND_MSG]
+               [--k K] [--worker_num WORKER_NUM] [--plot] [--multi_thread]
+               [--plot_type PLOT_TYPE]
+
+Hyper Parameters
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset DATASET
+  --topic_num TOPIC_NUM
+  --init_dataset
+  --seed SEED
+  --time_steps TIME_STEPS
+  --AI AI
+  --LAMBDA LAMBDA
+  --prob_send_msg PROB_SEND_MSG
+  --k K
+  --worker_num WORKER_NUM
+  --plot
+  --multi_thread
+  --plot_type PLOT_TYPE
+Namespace(AI='CB', LAMBDA=0.5, dataset='ciao_clean', init_dataset=True, k=10, multi_thread=False, plot=False, plot_type='fb', prob_send_msg=0.2, seed=4869, time_steps=200, topic_num=5, worker_num=10)
+Name: 
+Type: DiGraph
+Number of nodes: 18998
+Number of edges: 145528
+Average in degree:   7.6602
+Average out degree:   7.6602
+Time step: 0 | Execution time: 2s | Avg. FB: 0.517553 | Avg. EC: 0.000000
+usage: main.py [-h] [--dataset DATASET] [--topic_num TOPIC_NUM]
+               [--init_dataset] [--seed SEED] [--time_steps TIME_STEPS]
+               [--AI AI] [--LAMBDA LAMBDA] [--prob_send_msg PROB_SEND_MSG]
+               [--k K] [--worker_num WORKER_NUM] [--plot] [--multi_thread]
+               [--plot_type PLOT_TYPE]
+
+Hyper Parameters
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset DATASET
+  --topic_num TOPIC_NUM
+  --init_dataset
+  --seed SEED
+  --time_steps TIME_STEPS
+  --AI AI
+  --LAMBDA LAMBDA
+  --prob_send_msg PROB_SEND_MSG
+  --k K
+  --worker_num WORKER_NUM
+  --plot
+  --multi_thread
+  --plot_type PLOT_TYPE
+Namespace(AI='UC', LAMBDA=0.5, dataset='ciao_clean', init_dataset=True, k=10, multi_thread=False, plot=False, plot_type='fb', prob_send_msg=0.2, seed=4869, time_steps=200, topic_num=5, worker_num=10)
+Name: 
+Type: DiGraph
+Number of nodes: 18998
+Number of edges: 145528
+Average in degree:   7.6602
+Average out degree:   7.6602
+Time step: 0 | Execution time: 2s | Avg. FB: 0.517553 | Avg. EC: 0.000000
+Time step: 1 | Execution time: 31s | Avg. FB: 1.331310 | Avg. EC: 0.946698
+Time step: 1 | Execution time: 137s | Avg. FB: 1.320106 | Avg. EC: 0.946567
+Time step: 2 | Execution time: 128s | Avg. FB: 1.407515 | Avg. EC: 0.917483
+Time step: 3 | Execution time: 104s | Avg. FB: 1.434360 | Avg. EC: 0.913615
+Time step: 4 | Execution time: 109s | Avg. FB: 1.442147 | Avg. EC: 0.911202
+Time step: 5 | Execution time: 107s | Avg. FB: 1.451668 | Avg. EC: 0.910891
+Time step: 6 | Execution time: 114s | Avg. FB: 1.458745 | Avg. EC: 0.911246
+Time step: 7 | Execution time: 111s | Avg. FB: 1.463307 | Avg. EC: 0.910964
+Time step: 2 | Execution time: 574s | Avg. FB: 1.396079 | Avg. EC: 0.918762
+Time step: 8 | Execution time: 106s | Avg. FB: 1.464296 | Avg. EC: 0.910255
+usage: main.py [-h] [--dataset DATASET] [--topic_num TOPIC_NUM]
+               [--init_dataset] [--seed SEED] [--time_steps TIME_STEPS]
+               [--AI AI] [--LAMBDA LAMBDA] [--prob_send_msg PROB_SEND_MSG]
+               [--k K] [--worker_num WORKER_NUM] [--plot] [--multi_thread]
+               [--plot_type PLOT_TYPE]
+
+Hyper Parameters
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset DATASET
+  --topic_num TOPIC_NUM
+  --init_dataset
+  --seed SEED
+  --time_steps TIME_STEPS
+  --AI AI
+  --LAMBDA LAMBDA
+  --prob_send_msg PROB_SEND_MSG
+  --k K
+  --worker_num WORKER_NUM
+  --plot
+  --multi_thread
+  --plot_type PLOT_TYPE
+Namespace(AI='None', LAMBDA=0.5, dataset='ciao_clean', init_dataset=True, k=10, multi_thread=False, plot=False, plot_type='fb', prob_send_msg=0.2, seed=4869, time_steps=200, topic_num=5, worker_num=10)
+Name: 
+Type: DiGraph
+Number of nodes: 18998
+Number of edges: 145528
+Average in degree:   7.6602
+Average out degree:   7.6602
+Time step: 0 | Execution time: 3s | Avg. FB: 0.517553 | Avg. EC: 0.000000
+Time step: 1 | Execution time: 7s | Avg. FB: 1.348674 | Avg. EC: 0.947969
+Time step: 2 | Execution time: 7s | Avg. FB: 1.422500 | Avg. EC: 0.920509
+Time step: 3 | Execution time: 8s | Avg. FB: 1.450670 | Avg. EC: 0.916758
+Time step: 4 | Execution time: 7s | Avg. FB: 1.463375 | Avg. EC: 0.915114
+Time step: 5 | Execution time: 8s | Avg. FB: 1.469618 | Avg. EC: 0.914661
+Time step: 6 | Execution time: 9s | Avg. FB: 1.474687 | Avg. EC: 0.914885
+Time step: 7 | Execution time: 7s | Avg. FB: 1.479764 | Avg. EC: 0.915325
+Time step: 8 | Execution time: 8s | Avg. FB: 1.481910 | Avg. EC: 0.915504
+Time step: 9 | Execution time: 7s | Avg. FB: 1.483484 | Avg. EC: 0.915518
+Time step: 10 | Execution time: 6s | Avg. FB: 1.485124 | Avg. EC: 0.915762
+Time step: 11 | Execution time: 9s | Avg. FB: 1.485576 | Avg. EC: 0.915772
+Time step: 12 | Execution time: 7s | Avg. FB: 1.486541 | Avg. EC: 0.916060
+Time step: 13 | Execution time: 7s | Avg. FB: 1.487349 | Avg. EC: 0.916298
+Time step: 14 | Execution time: 8s | Avg. FB: 1.488030 | Avg. EC: 0.916522
+Time step: 15 | Execution time: 7s | Avg. FB: 1.488596 | Avg. EC: 0.916885
+Time step: 16 | Execution time: 7s | Avg. FB: 1.488672 | Avg. EC: 0.917060
+Time step: 17 | Execution time: 7s | Avg. FB: 1.489025 | Avg. EC: 0.917213
+Time step: 18 | Execution time: 9s | Avg. FB: 1.488911 | Avg. EC: 0.917171
+Time step: 19 | Execution time: 7s | Avg. FB: 1.489537 | Avg. EC: 0.917284
+Time step: 20 | Execution time: 7s | Avg. FB: 1.489585 | Avg. EC: 0.917378
+Time step: 21 | Execution time: 7s | Avg. FB: 1.490199 | Avg. EC: 0.917609
+Time step: 22 | Execution time: 9s | Avg. FB: 1.490417 | Avg. EC: 0.917689
+Time step: 23 | Execution time: 10s | Avg. FB: 1.490697 | Avg. EC: 0.917754
+Time step: 24 | Execution time: 7s | Avg. FB: 1.491226 | Avg. EC: 0.917818
+Time step: 25 | Execution time: 7s | Avg. FB: 1.491657 | Avg. EC: 0.917840
+Time step: 26 | Execution time: 8s | Avg. FB: 1.491918 | Avg. EC: 0.917891
+Time step: 27 | Execution time: 7s | Avg. FB: 1.492017 | Avg. EC: 0.917880
+Time step: 28 | Execution time: 7s | Avg. FB: 1.492206 | Avg. EC: 0.917929
+Time step: 29 | Execution time: 11s | Avg. FB: 1.492167 | Avg. EC: 0.917994
+Time step: 30 | Execution time: 7s | Avg. FB: 1.492427 | Avg. EC: 0.917983
+Time step: 31 | Execution time: 7s | Avg. FB: 1.492583 | Avg. EC: 0.918000
+Time step: 32 | Execution time: 8s | Avg. FB: 1.492857 | Avg. EC: 0.918031
+Time step: 33 | Execution time: 7s | Avg. FB: 1.493106 | Avg. EC: 0.918183
+Time step: 34 | Execution time: 7s | Avg. FB: 1.493298 | Avg. EC: 0.918146
+Time step: 35 | Execution time: 8s | Avg. FB: 1.493615 | Avg. EC: 0.918302
+Time step: 36 | Execution time: 12s | Avg. FB: 1.493586 | Avg. EC: 0.918351
+Time step: 37 | Execution time: 7s | Avg. FB: 1.493614 | Avg. EC: 0.918402
+Time step: 38 | Execution time: 7s | Avg. FB: 1.493854 | Avg. EC: 0.918432
+Time step: 39 | Execution time: 7s | Avg. FB: 1.493856 | Avg. EC: 0.918417
+Time step: 40 | Execution time: 7s | Avg. FB: 1.494059 | Avg. EC: 0.918491
+Time step: 41 | Execution time: 7s | Avg. FB: 1.494229 | Avg. EC: 0.918506
+Time step: 42 | Execution time: 7s | Avg. FB: 1.494106 | Avg. EC: 0.918499
+Time step: 43 | Execution time: 7s | Avg. FB: 1.494157 | Avg. EC: 0.918590
+Time step: 44 | Execution time: 7s | Avg. FB: 1.494307 | Avg. EC: 0.918632
+Time step: 45 | Execution time: 7s | Avg. FB: 1.494466 | Avg. EC: 0.918686
+Time step: 46 | Execution time: 12s | Avg. FB: 1.494333 | Avg. EC: 0.918699
+Time step: 47 | Execution time: 8s | Avg. FB: 1.494274 | Avg. EC: 0.918740
+Time step: 48 | Execution time: 9s | Avg. FB: 1.494370 | Avg. EC: 0.918800
+Time step: 49 | Execution time: 8s | Avg. FB: 1.494534 | Avg. EC: 0.918873
+Time step: 50 | Execution time: 8s | Avg. FB: 1.494606 | Avg. EC: 0.918900
+Time step: 51 | Execution time: 8s | Avg. FB: 1.494570 | Avg. EC: 0.918853
+Time step: 52 | Execution time: 8s | Avg. FB: 1.494605 | Avg. EC: 0.918880
+Time step: 53 | Execution time: 8s | Avg. FB: 1.494703 | Avg. EC: 0.918890
+Time step: 54 | Execution time: 8s | Avg. FB: 1.494735 | Avg. EC: 0.918872
+Time step: 55 | Execution time: 8s | Avg. FB: 1.494707 | Avg. EC: 0.918846
+Time step: 56 | Execution time: 8s | Avg. FB: 1.494698 | Avg. EC: 0.918793
+Time step: 57 | Execution time: 14s | Avg. FB: 1.494803 | Avg. EC: 0.918799
+Time step: 58 | Execution time: 8s | Avg. FB: 1.494793 | Avg. EC: 0.918846
+Time step: 59 | Execution time: 7s | Avg. FB: 1.494820 | Avg. EC: 0.918951
+Time step: 60 | Execution time: 9s | Avg. FB: 1.494760 | Avg. EC: 0.918928
+Time step: 61 | Execution time: 8s | Avg. FB: 1.494651 | Avg. EC: 0.918899
+Time step: 62 | Execution time: 8s | Avg. FB: 1.494758 | Avg. EC: 0.918897
+Time step: 63 | Execution time: 8s | Avg. FB: 1.494806 | Avg. EC: 0.918881
+Time step: 64 | Execution time: 8s | Avg. FB: 1.494730 | Avg. EC: 0.918867
+Time step: 65 | Execution time: 9s | Avg. FB: 1.494717 | Avg. EC: 0.918823
+Time step: 66 | Execution time: 8s | Avg. FB: 1.494639 | Avg. EC: 0.918782
+Time step: 67 | Execution time: 8s | Avg. FB: 1.494614 | Avg. EC: 0.918799
+Time step: 68 | Execution time: 8s | Avg. FB: 1.494668 | Avg. EC: 0.918854
+Time step: 69 | Execution time: 8s | Avg. FB: 1.494740 | Avg. EC: 0.918905
+Time step: 70 | Execution time: 8s | Avg. FB: 1.494768 | Avg. EC: 0.918904
+Time step: 71 | Execution time: 8s | Avg. FB: 1.494791 | Avg. EC: 0.918904
+Time step: 72 | Execution time: 17s | Avg. FB: 1.494763 | Avg. EC: 0.918910
+Time step: 73 | Execution time: 8s | Avg. FB: 1.494897 | Avg. EC: 0.918905
+Time step: 74 | Execution time: 8s | Avg. FB: 1.494972 | Avg. EC: 0.918914
+Time step: 75 | Execution time: 8s | Avg. FB: 1.495024 | Avg. EC: 0.918930
+Time step: 76 | Execution time: 8s | Avg. FB: 1.494944 | Avg. EC: 0.918913
+Time step: 77 | Execution time: 8s | Avg. FB: 1.494923 | Avg. EC: 0.918915
+Time step: 78 | Execution time: 8s | Avg. FB: 1.494950 | Avg. EC: 0.918922
+Time step: 79 | Execution time: 8s | Avg. FB: 1.494966 | Avg. EC: 0.918939
+Time step: 80 | Execution time: 8s | Avg. FB: 1.494968 | Avg. EC: 0.918951
+Time step: 81 | Execution time: 8s | Avg. FB: 1.494922 | Avg. EC: 0.918918
+Time step: 82 | Execution time: 8s | Avg. FB: 1.494964 | Avg. EC: 0.918958
+Time step: 83 | Execution time: 8s | Avg. FB: 1.495033 | Avg. EC: 0.918982
+Time step: 84 | Execution time: 10s | Avg. FB: 1.495129 | Avg. EC: 0.919009
+Time step: 85 | Execution time: 9s | Avg. FB: 1.495186 | Avg. EC: 0.919042
+Time step: 86 | Execution time: 9s | Avg. FB: 1.495214 | Avg. EC: 0.919057
+Time step: 87 | Execution time: 7s | Avg. FB: 1.495249 | Avg. EC: 0.919090
+Time step: 88 | Execution time: 7s | Avg. FB: 1.495235 | Avg. EC: 0.919115
+Time step: 89 | Execution time: 8s | Avg. FB: 1.495261 | Avg. EC: 0.919108
+Time step: 90 | Execution time: 19s | Avg. FB: 1.495279 | Avg. EC: 0.919131
+Time step: 91 | Execution time: 9s | Avg. FB: 1.495273 | Avg. EC: 0.919128
+Time step: 92 | Execution time: 9s | Avg. FB: 1.495367 | Avg. EC: 0.919150
+Time step: 93 | Execution time: 9s | Avg. FB: 1.495308 | Avg. EC: 0.919085
+Time step: 94 | Execution time: 9s | Avg. FB: 1.495359 | Avg. EC: 0.919090
+Time step: 95 | Execution time: 9s | Avg. FB: 1.495399 | Avg. EC: 0.919089
+Time step: 96 | Execution time: 8s | Avg. FB: 1.495377 | Avg. EC: 0.919088Time step: 9 | Execution time: 105s | Avg. FB: 1.468672 | Avg. EC: 0.911019
+Time step: 10 | Execution time: 111s | Avg. FB: 1.469340 | Avg. EC: 0.910678
+Time step: 11 | Execution time: 109s | Avg. FB: 1.471087 | Avg. EC: 0.911111
+Time step: 3 | Execution time: 459s | Avg. FB: 1.431812 | Avg. EC: 0.915224
+Time step: 12 | Execution time: 108s | Avg. FB: 1.469196 | Avg. EC: 0.910469
+Time step: 13 | Execution time: 108s | Avg. FB: 1.469974 | Avg. EC: 0.910210
+Time step: 14 | Execution time: 115s | Avg. FB: 1.470349 | Avg. EC: 0.910117
+Time step: 15 | Execution time: 104s | Avg. FB: 1.472118 | Avg. EC: 0.910320
+Time step: 4 | Execution time: 480s | Avg. FB: 1.445659 | Avg. EC: 0.913334
+Time step: 16 | Execution time: 106s | Avg. FB: 1.473350 | Avg. EC: 0.910447
+Time step: 17 | Execution time: 109s | Avg. FB: 1.474211 | Avg. EC: 0.910599
+
+Time step: 97 | Execution time: 8s | Avg. FB: 1.495421 | Avg. EC: 0.919106
+Time step: 98 | Execution time: 9s | Avg. FB: 1.495460 | Avg. EC: 0.919098
+Time step: 99 | Execution time: 9s | Avg. FB: 1.495466 | Avg. EC: 0.919107
+Time step: 100 | Execution time: 8s | Avg. FB: 1.495524 | Avg. EC: 0.919099
+Time step: 101 | Execution time: 9s | Avg. FB: 1.495568 | Avg. EC: 0.919144
+Time step: 102 | Execution time: 9s | Avg. FB: 1.495583 | Avg. EC: 0.919130
+Time step: 103 | Execution time: 9s | Avg. FB: 1.495615 | Avg. EC: 0.919152
+Time step: 104 | Execution time: 9s | Avg. FB: 1.495593 | Avg. EC: 0.919148
+Time step: 105 | Execution time: 9s | Avg. FB: 1.495609 | Avg. EC: 0.919148
+Time step: 106 | Execution time: 9s | Avg. FB: 1.495616 | Avg. EC: 0.919117
+Time step: 107 | Execution time: 9s | Avg. FB: 1.495590 | Avg. EC: 0.919142
+Time step: 108 | Execution time: 8s | Avg. FB: 1.495620 | Avg. EC: 0.919163
+Time step: 109 | Execution time: 9s | Avg. FB: 1.495640 | Avg. EC: 0.919175
+Time step: 110 | Execution time: 8s | Avg. FB: 1.495712 | Avg. EC: 0.919189
+Time step: 111 | Execution time: 8s | Avg. FB: 1.495709 | Avg. EC: 0.919194
+Time step: 112 | Execution time: 9s | Avg. FB: 1.495714 | Avg. EC: 0.919202
+Time step: 113 | Execution time: 22s | Avg. FB: 1.495734 | Avg. EC: 0.919210
+Time step: 114 | Execution time: 8s | Avg. FB: 1.495738 | Avg. EC: 0.919207
+Time step: 115 | Execution time: 9s | Avg. FB: 1.495743 | Avg. EC: 0.919270
+Time step: 116 | Execution time: 9s | Avg. FB: 1.495757 | Avg. EC: 0.919282
+Time step: 117 | Execution time: 10s | Avg. FB: 1.495821 | Avg. EC: 0.919295
+Time step: 118 | Execution time: 9s | Avg. FB: 1.495799 | Avg. EC: 0.919306
+Time step: 119 | Execution time: 9s | Avg. FB: 1.495893 | Avg. EC: 0.919286
+Time step: 120 | Execution time: 9s | Avg. FB: 1.495895 | Avg. EC: 0.919310
+Time step: 121 | Execution time: 9s | Avg. FB: 1.495907 | Avg. EC: 0.919330
+Time step: 122 | Execution time: 9s | Avg. FB: 1.495896 | Avg. EC: 0.919311
+Time step: 123 | Execution time: 9s | Avg. FB: 1.495900 | Avg. EC: 0.919283
+Time step: 124 | Execution time: 9s | Avg. FB: 1.495830 | Avg. EC: 0.919292
+Time step: 125 | Execution time: 9s | Avg. FB: 1.495812 | Avg. EC: 0.919276
+Time step: 126 | Execution time: 9s | Avg. FB: 1.495813 | Avg. EC: 0.919275
+Time step: 127 | Execution time: 8s | Avg. FB: 1.495797 | Avg. EC: 0.919274
+Time step: 128 | Execution time: 9s | Avg. FB: 1.495755 | Avg. EC: 0.919280
+Time step: 129 | Execution time: 10s | Avg. FB: 1.495790 | Avg. EC: 0.919302
+Time step: 130 | Execution time: 9s | Avg. FB: 1.495792 | Avg. EC: 0.919314
+Time step: 131 | Execution time: 9s | Avg. FB: 1.495792 | Avg. EC: 0.919310
+Time step: 132 | Execution time: 9s | Avg. FB: 1.495792 | Avg. EC: 0.919300
+Time step: 133 | Execution time: 9s | Avg. FB: 1.495816 | Avg. EC: 0.919322
+Time step: 134 | Execution time: 10s | Avg. FB: 1.495805 | Avg. EC: 0.919307
+Time step: 135 | Execution time: 9s | Avg. FB: 1.495855 | Avg. EC: 0.919337
+Time step: 136 | Execution time: 9s | Avg. FB: 1.495860 | Avg. EC: 0.919350
+Time step: 137 | Execution time: 9s | Avg. FB: 1.495798 | Avg. EC: 0.919339
+Time step: 138 | Execution time: 10s | Avg. FB: 1.495798 | Avg. EC: 0.919343
+Time step: 139 | Execution time: 9s | Avg. FB: 1.495805 | Avg. EC: 0.919352
+Time step: 140 | Execution time: 10s | Avg. FB: 1.495870 | Avg. EC: 0.919407
+Time step: 141 | Execution time: 9s | Avg. FB: 1.495822 | Avg. EC: 0.919396
+Time step: 142 | Execution time: 25s | Avg. FB: 1.495862 | Avg. EC: 0.919391
+Time step: 143 | Execution time: 9s | Avg. FB: 1.495846 | Avg. EC: 0.919380
+Time step: 144 | Execution time: 9s | Avg. FB: 1.495807 | Avg. EC: 0.919376
+Time step: 145 | Execution time: 9s | Avg. FB: 1.495860 | Avg. EC: 0.919395
+Time step: 146 | Execution time: 9s | Avg. FB: 1.495865 | Avg. EC: 0.919418
+Time step: 147 | Execution time: 10s | Avg. FB: 1.495841 | Avg. EC: 0.919416
+Time step: 148 | Execution time: 10s | Avg. FB: 1.495829 | Avg. EC: 0.919430
+Time step: 149 | Execution time: 11s | Avg. FB: 1.495853 | Avg. EC: 0.919454
+Time step: 150 | Execution time: 9s | Avg. FB: 1.495863 | Avg. EC: 0.919452
+Time step: 151 | Execution time: 9s | Avg. FB: 1.495881 | Avg. EC: 0.919439
+Time step: 152 | Execution time: 9s | Avg. FB: 1.495905 | Avg. EC: 0.919438
+Time step: 153 | Execution time: 9s | Avg. FB: 1.495912 | Avg. EC: 0.919436
+Time step: 154 | Execution time: 9s | Avg. FB: 1.495946 | Avg. EC: 0.919435
+Time step: 155 | Execution time: 9s | Avg. FB: 1.495948 | Avg. EC: 0.919442
+Time step: 156 | Execution time: 10s | Avg. FB: 1.495948 | Avg. EC: 0.919456
+Time step: 157 | Execution time: 10s | Avg. FB: 1.495932 | Avg. EC: 0.919441
+Time step: 158 | Execution time: 9s | Avg. FB: 1.495930 | Avg. EC: 0.919442
+Time step: 159 | Execution time: 9s | Avg. FB: 1.495917 | Avg. EC: 0.919452
+Time step: 160 | Execution time: 9s | Avg. FB: 1.495920 | Avg. EC: 0.919454
+Time step: 161 | Execution time: 11s | Avg. FB: 1.495908 | Avg. EC: 0.919455
+Time step: 162 | Execution time: 10s | Avg. FB: 1.495928 | Avg. EC: 0.919458
+Time step: 163 | Execution time: 9s | Avg. FB: 1.495914 | Avg. EC: 0.919474
+Time step: 164 | Execution time: 8s | Avg. FB: 1.495902 | Avg. EC: 0.919475
+Time step: 165 | Execution time: 9s | Avg. FB: 1.495945 | Avg. EC: 0.919502
+Time step: 166 | Execution time: 10s | Avg. FB: 1.495944 | Avg. EC: 0.919497
+Time step: 167 | Execution time: 10s | Avg. FB: 1.495938 | Avg. EC: 0.919506
+Time step: 168 | Execution time: 10s | Avg. FB: 1.495944 | Avg. EC: 0.919505
+Time step: 169 | Execution time: 10s | Avg. FB: 1.496006 | Avg. EC: 0.919496
+Time step: 170 | Execution time: 10s | Avg. FB: 1.495997 | Avg. EC: 0.919495
+Time step: 171 | Execution time: 10s | Avg. FB: 1.496015 | Avg. EC: 0.919510
+Time step: 172 | Execution time: 9s | Avg. FB: 1.496043 | Avg. EC: 0.919502
+Time step: 173 | Execution time: 8s | Avg. FB: 1.496070 | Avg. EC: 0.919501
+Time step: 174 | Execution time: 10s | Avg. FB: 1.496068 | Avg. EC: 0.919500
+Time step: 175 | Execution time: 10s | Avg. FB: 1.496070 | Avg. EC: 0.919502
+Time step: 176 | Execution time: 9s | Avg. FB: 1.496045 | Avg. EC: 0.919505
+Time step: 177 | Execution time: 10s | Avg. FB: 1.496052 | Avg. EC: 0.919506
+Time step: 178 | Execution time: 28s | Avg. FB: 1.496064 | Avg. EC: 0.919512
+Time step: 179 | Execution time: 10s | Avg. FB: 1.496055 | Avg. EC: 0.919501
+Time step: 180 | Execution time: 11s | Avg. FB: 1.496069 | Avg. EC: 0.919518
+Time step: 181 | Execution time: 10s | Avg. FB: 1.496103 | Avg. EC: 0.919514
+Time step: 182 | Execution time: 10s | Avg. FB: 1.496132 | Avg. EC: 0.919511
+Time step: 183 | Execution time: 10s | Avg. FB: 1.496145 | Avg. EC: 0.919526
+Time step: 184 | Execution time: 10s | Avg. FB: 1.496169 | Avg. EC: 0.919518
+Time step: 185 | Execution time: 9s | Avg. FB: 1.496202 | Avg. EC: 0.919535
+Time step: 186 | Execution time: 10s | Avg. FB: 1.496216 | Avg. EC: 0.919548
+Time step: 187 | Execution time: 10s | Avg. FB: 1.496221 | Avg. EC: 0.919551
+Time step: 188 | Execution time: 9s | Avg. FB: 1.496219 | Avg. EC: 0.919551
+Time step: 189 | Execution time: 10s | Avg. FB: 1.496191 | Avg. EC: 0.919547
+Time step: 190 | Execution time: 11s | Avg. FB: 1.496184 | Avg. EC: 0.919560
+Time step: 191 | Execution time: 10s | Avg. FB: 1.496221 | Avg. EC: 0.919582
+Time step: 192 | Execution time: 10s | Avg. FB: 1.496262 | Avg. EC: 0.919572
+Time step: 193 | Execution time: 10s | Avg. FB: 1.496276 | Avg. EC: 0.919576
+Time step: 194 | Execution time: 10s | Avg. FB: 1.496316 | Avg. EC: 0.919617
+Time step: 195 | Execution time: 10s | Avg. FB: 1.496304 | Avg. EC: 0.919622
+Time step: 196 | Execution time: 10s | Avg. FB: 1.496295 | Avg. EC: 0.919601
+Time step: 197 | Execution time: 10s | Avg. FB: 1.496297 | Avg. EC: 0.919623
+Time step: 198 | Execution time: 10s | Avg. FB: 1.496316 | Avg. EC: 0.919634
+Time step: 199 | Execution time: 10s | Avg. FB: 1.496303 | Avg. EC: 0.919628
+Time step: 18 | Execution time: 108s | Avg. FB: 1.473502 | Avg. EC: 0.910400
+Time step: 19 | Execution time: 110s | Avg. FB: 1.474692 | Avg. EC: 0.910604
+Time step: 20 | Execution time: 110s | Avg. FB: 1.474322 | Avg. EC: 0.910433
+Time step: 5 | Execution time: 476s | Avg. FB: 1.449847 | Avg. EC: 0.911499
+Time step: 21 | Execution time: 110s | Avg. FB: 1.474997 | Avg. EC: 0.910838
+Time step: 22 | Execution time: 110s | Avg. FB: 1.475586 | Avg. EC: 0.911047
+Time step: 23 | Execution time: 106s | Avg. FB: 1.476301 | Avg. EC: 0.911349
+Time step: 24 | Execution time: 108s | Avg. FB: 1.476522 | Avg. EC: 0.911316
+Time step: 6 | Execution time: 476s | Avg. FB: 1.452701 | Avg. EC: 0.910373
+Time step: 25 | Execution time: 110s | Avg. FB: 1.476969 | Avg. EC: 0.911319
+Time step: 26 | Execution time: 110s | Avg. FB: 1.477344 | Avg. EC: 0.911455
+Time step: 27 | Execution time: 110s | Avg. FB: 1.477191 | Avg. EC: 0.911542
+Time step: 28 | Execution time: 115s | Avg. FB: 1.478298 | Avg. EC: 0.912039
+Time step: 7 | Execution time: 480s | Avg. FB: 1.457718 | Avg. EC: 0.910547
+Time step: 29 | Execution time: 107s | Avg. FB: 1.478287 | Avg. EC: 0.912030
+Time step: 30 | Execution time: 107s | Avg. FB: 1.478841 | Avg. EC: 0.912101
+Time step: 31 | Execution time: 109s | Avg. FB: 1.479268 | Avg. EC: 0.912301
+Time step: 32 | Execution time: 109s | Avg. FB: 1.479396 | Avg. EC: 0.912286
+Time step: 33 | Execution time: 108s | Avg. FB: 1.479790 | Avg. EC: 0.912414
+Time step: 8 | Execution time: 481s | Avg. FB: 1.458135 | Avg. EC: 0.910075
+Time step: 34 | Execution time: 113s | Avg. FB: 1.479794 | Avg. EC: 0.912479
+Time step: 35 | Execution time: 116s | Avg. FB: 1.480094 | Avg. EC: 0.912621
+Time step: 36 | Execution time: 107s | Avg. FB: 1.480734 | Avg. EC: 0.912844
+Time step: 37 | Execution time: 110s | Avg. FB: 1.480847 | Avg. EC: 0.912852
+Time step: 9 | Execution time: 478s | Avg. FB: 1.455979 | Avg. EC: 0.908922
+Time step: 38 | Execution time: 109s | Avg. FB: 1.481121 | Avg. EC: 0.912916
+Time step: 39 | Execution time: 112s | Avg. FB: 1.481571 | Avg. EC: 0.913139
+Time step: 40 | Execution time: 108s | Avg. FB: 1.481629 | Avg. EC: 0.913119
+Time step: 41 | Execution time: 107s | Avg. FB: 1.481925 | Avg. EC: 0.913257
+Time step: 10 | Execution time: 477s | Avg. FB: 1.460287 | Avg. EC: 0.909787
+Time step: 42 | Execution time: 111s | Avg. FB: 1.482069 | Avg. EC: 0.913381
+Time step: 43 | Execution time: 109s | Avg. FB: 1.482206 | Avg. EC: 0.913446
+Time step: 44 | Execution time: 112s | Avg. FB: 1.482306 | Avg. EC: 0.913474
+Time step: 45 | Execution time: 110s | Avg. FB: 1.482473 | Avg. EC: 0.913480
+Time step: 46 | Execution time: 108s | Avg. FB: 1.482789 | Avg. EC: 0.913581
+Time step: 11 | Execution time: 487s | Avg. FB: 1.460428 | Avg. EC: 0.909325
+Time step: 47 | Execution time: 110s | Avg. FB: 1.483006 | Avg. EC: 0.913686
+Time step: 48 | Execution time: 110s | Avg. FB: 1.483377 | Avg. EC: 0.913742
+Time step: 49 | Execution time: 112s | Avg. FB: 1.483294 | Avg. EC: 0.913668
+Time step: 50 | Execution time: 107s | Avg. FB: 1.483358 | Avg. EC: 0.913700
+Time step: 12 | Execution time: 469s | Avg. FB: 1.463179 | Avg. EC: 0.909598
+Time step: 51 | Execution time: 107s | Avg. FB: 1.483541 | Avg. EC: 0.913707
+Time step: 52 | Execution time: 108s | Avg. FB: 1.483496 | Avg. EC: 0.913636
+Time step: 53 | Execution time: 110s | Avg. FB: 1.483404 | Avg. EC: 0.913640
+Time step: 54 | Execution time: 111s | Avg. FB: 1.483267 | Avg. EC: 0.913603
+Time step: 13 | Execution time: 477s | Avg. FB: 1.465024 | Avg. EC: 0.909915
+Time step: 55 | Execution time: 106s | Avg. FB: 1.483491 | Avg. EC: 0.913678
+Time step: 56 | Execution time: 113s | Avg. FB: 1.483413 | Avg. EC: 0.913617
+Time step: 57 | Execution time: 106s | Avg. FB: 1.483477 | Avg. EC: 0.913670
+Time step: 58 | Execution time: 111s | Avg. FB: 1.483807 | Avg. EC: 0.913757
+Time step: 59 | Execution time: 112s | Avg. FB: 1.483896 | Avg. EC: 0.913782
+Time step: 14 | Execution time: 476s | Avg. FB: 1.467027 | Avg. EC: 0.910300
+Time step: 60 | Execution time: 104s | Avg. FB: 1.483895 | Avg. EC: 0.913815
+Time step: 61 | Execution time: 109s | Avg. FB: 1.484042 | Avg. EC: 0.913851
+Time step: 62 | Execution time: 109s | Avg. FB: 1.483991 | Avg. EC: 0.913889
+Time step: 63 | Execution time: 110s | Avg. FB: 1.484113 | Avg. EC: 0.914033
+Time step: 15 | Execution time: 485s | Avg. FB: 1.467291 | Avg. EC: 0.910394
+Time step: 64 | Execution time: 109s | Avg. FB: 1.484311 | Avg. EC: 0.914141
+Time step: 65 | Execution time: 108s | Avg. FB: 1.484359 | Avg. EC: 0.914249
+Time step: 66 | Execution time: 112s | Avg. FB: 1.484400 | Avg. EC: 0.914271
+Time step: 67 | Execution time: 110s | Avg. FB: 1.484416 | Avg. EC: 0.914250
+Time step: 68 | Execution time: 112s | Avg. FB: 1.484352 | Avg. EC: 0.914264
+Time step: 16 | Execution time: 473s | Avg. FB: 1.467184 | Avg. EC: 0.910081
+Time step: 69 | Execution time: 110s | Avg. FB: 1.484401 | Avg. EC: 0.914321
+Time step: 70 | Execution time: 115s | Avg. FB: 1.484420 | Avg. EC: 0.914314
+Time step: 71 | Execution time: 111s | Avg. FB: 1.484308 | Avg. EC: 0.914239
+Time step: 72 | Execution time: 111s | Avg. FB: 1.484364 | Avg. EC: 0.914249
+Time step: 17 | Execution time: 476s | Avg. FB: 1.467652 | Avg. EC: 0.909971
+Time step: 73 | Execution time: 114s | Avg. FB: 1.484349 | Avg. EC: 0.914265
+Time step: 74 | Execution time: 106s | Avg. FB: 1.484432 | Avg. EC: 0.914261
+Time step: 75 | Execution time: 109s | Avg. FB: 1.484555 | Avg. EC: 0.914284
+Time step: 76 | Execution time: 110s | Avg. FB: 1.484593 | Avg. EC: 0.914347
+Time step: 18 | Execution time: 484s | Avg. FB: 1.468724 | Avg. EC: 0.910104
+Time step: 77 | Execution time: 113s | Avg. FB: 1.484581 | Avg. EC: 0.914372
+Time step: 78 | Execution time: 112s | Avg. FB: 1.484585 | Avg. EC: 0.914377
+Time step: 79 | Execution time: 106s | Avg. FB: 1.484637 | Avg. EC: 0.914392
+Time step: 80 | Execution time: 108s | Avg. FB: 1.484772 | Avg. EC: 0.914467
+Time step: 19 | Execution time: 474s | Avg. FB: 1.469806 | Avg. EC: 0.910205
+Time step: 81 | Execution time: 110s | Avg. FB: 1.484884 | Avg. EC: 0.914547
+Time step: 82 | Execution time: 113s | Avg. FB: 1.485043 | Avg. EC: 0.914572
+Time step: 83 | Execution time: 112s | Avg. FB: 1.485230 | Avg. EC: 0.914646
+Time step: 84 | Execution time: 108s | Avg. FB: 1.485325 | Avg. EC: 0.914700
+Time step: 85 | Execution time: 111s | Avg. FB: 1.485374 | Avg. EC: 0.914760
+Time step: 20 | Execution time: 481s | Avg. FB: 1.470280 | Avg. EC: 0.910351
+Time step: 86 | Execution time: 110s | Avg. FB: 1.485373 | Avg. EC: 0.914712
+Time step: 87 | Execution time: 113s | Avg. FB: 1.485551 | Avg. EC: 0.914779
+Time step: 88 | Execution time: 121s | Avg. FB: 1.485496 | Avg. EC: 0.914794
+Time step: 89 | Execution time: 107s | Avg. FB: 1.485613 | Avg. EC: 0.914854
+Time step: 21 | Execution time: 471s | Avg. FB: 1.470735 | Avg. EC: 0.910457
+Time step: 90 | Execution time: 114s | Avg. FB: 1.485419 | Avg. EC: 0.914830
+Time step: 91 | Execution time: 107s | Avg. FB: 1.485585 | Avg. EC: 0.914856
+Time step: 92 | Execution time: 116s | Avg. FB: 1.485655 | Avg. EC: 0.914854
+Time step: 93 | Execution time: 108s | Avg. FB: 1.485686 | Avg. EC: 0.914895
+Time step: 22 | Execution time: 478s | Avg. FB: 1.471282 | Avg. EC: 0.910550
+Time step: 94 | Execution time: 110s | Avg. FB: 1.485682 | Avg. EC: 0.914879
+Time step: 95 | Execution time: 114s | Avg. FB: 1.485735 | Avg. EC: 0.914930
+Time step: 96 | Execution time: 113s | Avg. FB: 1.485557 | Avg. EC: 0.914878
+Time step: 97 | Execution time: 111s | Avg. FB: 1.485683 | Avg. EC: 0.914946
+Time step: 23 | Execution time: 472s | Avg. FB: 1.471372 | Avg. EC: 0.910369
+Time step: 98 | Execution time: 109s | Avg. FB: 1.485691 | Avg. EC: 0.914979
+Time step: 99 | Execution time: 108s | Avg. FB: 1.485614 | Avg. EC: 0.914992
+Time step: 100 | Execution time: 112s | Avg. FB: 1.485531 | Avg. EC: 0.914989
+Time step: 101 | Execution time: 114s | Avg. FB: 1.485679 | Avg. EC: 0.915059
+Time step: 102 | Execution time: 112s | Avg. FB: 1.485805 | Avg. EC: 0.915141
+Time step: 24 | Execution time: 480s | Avg. FB: 1.472326 | Avg. EC: 0.910612
+Time step: 103 | Execution time: 109s | Avg. FB: 1.485725 | Avg. EC: 0.915089
+Time step: 104 | Execution time: 109s | Avg. FB: 1.485861 | Avg. EC: 0.915129
+Time step: 105 | Execution time: 112s | Avg. FB: 1.485845 | Avg. EC: 0.915143
+Time step: 106 | Execution time: 118s | Avg. FB: 1.485756 | Avg. EC: 0.915091
+Time step: 25 | Execution time: 488s | Avg. FB: 1.472748 | Avg. EC: 0.910760
+Time step: 107 | Execution time: 112s | Avg. FB: 1.485827 | Avg. EC: 0.915132
+Time step: 108 | Execution time: 115s | Avg. FB: 1.485923 | Avg. EC: 0.915181
+Time step: 109 | Execution time: 117s | Avg. FB: 1.486027 | Avg. EC: 0.915230
+Time step: 110 | Execution time: 131s | Avg. FB: 1.486097 | Avg. EC: 0.915284
+Time step: 26 | Execution time: 502s | Avg. FB: 1.473316 | Avg. EC: 0.910856
+Time step: 111 | Execution time: 113s | Avg. FB: 1.486084 | Avg. EC: 0.915286
+Time step: 112 | Execution time: 115s | Avg. FB: 1.486177 | Avg. EC: 0.915358
+Time step: 113 | Execution time: 118s | Avg. FB: 1.486233 | Avg. EC: 0.915406
+Time step: 114 | Execution time: 119s | Avg. FB: 1.486332 | Avg. EC: 0.915444
+Time step: 115 | Execution time: 114s | Avg. FB: 1.486359 | Avg. EC: 0.915465
+Time step: 27 | Execution time: 503s | Avg. FB: 1.473901 | Avg. EC: 0.910991
+Time step: 116 | Execution time: 113s | Avg. FB: 1.486367 | Avg. EC: 0.915462
+Time step: 117 | Execution time: 117s | Avg. FB: 1.486307 | Avg. EC: 0.915432
+Time step: 118 | Execution time: 119s | Avg. FB: 1.486378 | Avg. EC: 0.915407
+Time step: 119 | Execution time: 115s | Avg. FB: 1.486274 | Avg. EC: 0.915360
+Time step: 28 | Execution time: 505s | Avg. FB: 1.474313 | Avg. EC: 0.911327
+Time step: 120 | Execution time: 113s | Avg. FB: 1.486316 | Avg. EC: 0.915373
+Time step: 121 | Execution time: 118s | Avg. FB: 1.486327 | Avg. EC: 0.915391
+Time step: 122 | Execution time: 119s | Avg. FB: 1.486371 | Avg. EC: 0.915419
+Time step: 123 | Execution time: 113s | Avg. FB: 1.486440 | Avg. EC: 0.915454
+Time step: 29 | Execution time: 503s | Avg. FB: 1.474689 | Avg. EC: 0.911468
+Time step: 124 | Execution time: 115s | Avg. FB: 1.486432 | Avg. EC: 0.915469
+Time step: 125 | Execution time: 116s | Avg. FB: 1.486438 | Avg. EC: 0.915474
+Time step: 126 | Execution time: 122s | Avg. FB: 1.486416 | Avg. EC: 0.915462
+Time step: 127 | Execution time: 112s | Avg. FB: 1.486487 | Avg. EC: 0.915495
+Time step: 128 | Execution time: 112s | Avg. FB: 1.486521 | Avg. EC: 0.915524
+Time step: 30 | Execution time: 495s | Avg. FB: 1.474406 | Avg. EC: 0.911380
+Time step: 129 | Execution time: 116s | Avg. FB: 1.486453 | Avg. EC: 0.915542
+Time step: 130 | Execution time: 118s | Avg. FB: 1.486441 | Avg. EC: 0.915521
+Time step: 131 | Execution time: 115s | Avg. FB: 1.486498 | Avg. EC: 0.915537
+Time step: 132 | Execution time: 115s | Avg. FB: 1.486423 | Avg. EC: 0.915510
+Time step: 31 | Execution time: 490s | Avg. FB: 1.474618 | Avg. EC: 0.911375
+Time step: 133 | Execution time: 115s | Avg. FB: 1.486527 | Avg. EC: 0.915544
+Time step: 134 | Execution time: 122s | Avg. FB: 1.486463 | Avg. EC: 0.915528
+Time step: 135 | Execution time: 115s | Avg. FB: 1.486350 | Avg. EC: 0.915493
+Time step: 136 | Execution time: 114s | Avg. FB: 1.486335 | Avg. EC: 0.915504
+Time step: 32 | Execution time: 502s | Avg. FB: 1.474529 | Avg. EC: 0.911545
+Time step: 137 | Execution time: 130s | Avg. FB: 1.486357 | Avg. EC: 0.915502
+Time step: 138 | Execution time: 119s | Avg. FB: 1.486369 | Avg. EC: 0.915542
+Time step: 139 | Execution time: 114s | Avg. FB: 1.486262 | Avg. EC: 0.915487
+Time step: 140 | Execution time: 113s | Avg. FB: 1.486287 | Avg. EC: 0.915489
+Time step: 33 | Execution time: 493s | Avg. FB: 1.474514 | Avg. EC: 0.911528
+Time step: 141 | Execution time: 116s | Avg. FB: 1.486333 | Avg. EC: 0.915489
+Time step: 142 | Execution time: 119s | Avg. FB: 1.486182 | Avg. EC: 0.915468
+Time step: 143 | Execution time: 113s | Avg. FB: 1.486226 | Avg. EC: 0.915494
+Time step: 144 | Execution time: 115s | Avg. FB: 1.486311 | Avg. EC: 0.915534
+Time step: 145 | Execution time: 115s | Avg. FB: 1.486317 | Avg. EC: 0.915557
+Time step: 34 | Execution time: 498s | Avg. FB: 1.474528 | Avg. EC: 0.911586
+Time step: 146 | Execution time: 117s | Avg. FB: 1.486420 | Avg. EC: 0.915585
+Time step: 147 | Execution time: 119s | Avg. FB: 1.486491 | Avg. EC: 0.915600
+Time step: 148 | Execution time: 112s | Avg. FB: 1.486495 | Avg. EC: 0.915601
+Time step: 149 | Execution time: 119s | Avg. FB: 1.486339 | Avg. EC: 0.915517
+Time step: 35 | Execution time: 500s | Avg. FB: 1.475219 | Avg. EC: 0.911950
+Time step: 150 | Execution time: 115s | Avg. FB: 1.486404 | Avg. EC: 0.915517
+Time step: 151 | Execution time: 123s | Avg. FB: 1.486397 | Avg. EC: 0.915527
+Time step: 152 | Execution time: 110s | Avg. FB: 1.486408 | Avg. EC: 0.915514
+Time step: 153 | Execution time: 118s | Avg. FB: 1.486470 | Avg. EC: 0.915550
+Time step: 36 | Execution time: 510s | Avg. FB: 1.475739 | Avg. EC: 0.912154
+Time step: 154 | Execution time: 117s | Avg. FB: 1.486529 | Avg. EC: 0.915618
+Time step: 155 | Execution time: 120s | Avg. FB: 1.486575 | Avg. EC: 0.915632
+Time step: 156 | Execution time: 113s | Avg. FB: 1.486563 | Avg. EC: 0.915613
+Time step: 157 | Execution time: 114s | Avg. FB: 1.486585 | Avg. EC: 0.915633
+Time step: 37 | Execution time: 498s | Avg. FB: 1.475996 | Avg. EC: 0.912247
+Time step: 158 | Execution time: 117s | Avg. FB: 1.486616 | Avg. EC: 0.915648
+Time step: 159 | Execution time: 120s | Avg. FB: 1.486665 | Avg. EC: 0.915673
+Time step: 160 | Execution time: 114s | Avg. FB: 1.486703 | Avg. EC: 0.915709
+Time step: 161 | Execution time: 113s | Avg. FB: 1.486709 | Avg. EC: 0.915702
+Time step: 162 | Execution time: 115s | Avg. FB: 1.486786 | Avg. EC: 0.915723
+Time step: 38 | Execution time: 495s | Avg. FB: 1.476111 | Avg. EC: 0.912300
+Time step: 163 | Execution time: 121s | Avg. FB: 1.486742 | Avg. EC: 0.915688
+Time step: 164 | Execution time: 114s | Avg. FB: 1.486484 | Avg. EC: 0.915579
+Time step: 165 | Execution time: 111s | Avg. FB: 1.486523 | Avg. EC: 0.915581
+Time step: 166 | Execution time: 117s | Avg. FB: 1.486507 | Avg. EC: 0.915584
+Time step: 39 | Execution time: 499s | Avg. FB: 1.476438 | Avg. EC: 0.912455
+Time step: 167 | Execution time: 118s | Avg. FB: 1.486535 | Avg. EC: 0.915585
+Time step: 168 | Execution time: 115s | Avg. FB: 1.486467 | Avg. EC: 0.915540
+Time step: 169 | Execution time: 115s | Avg. FB: 1.486510 | Avg. EC: 0.915556
+Time step: 170 | Execution time: 118s | Avg. FB: 1.486496 | Avg. EC: 0.915543
+Time step: 40 | Execution time: 498s | Avg. FB: 1.476837 | Avg. EC: 0.912675
+Time step: 171 | Execution time: 117s | Avg. FB: 1.486552 | Avg. EC: 0.915580
+Time step: 172 | Execution time: 135s | Avg. FB: 1.486492 | Avg. EC: 0.915563
+Time step: 173 | Execution time: 113s | Avg. FB: 1.486542 | Avg. EC: 0.915569
+Time step: 174 | Execution time: 118s | Avg. FB: 1.486543 | Avg. EC: 0.915595
+Time step: 41 | Execution time: 497s | Avg. FB: 1.477184 | Avg. EC: 0.912961
+Time step: 175 | Execution time: 116s | Avg. FB: 1.486513 | Avg. EC: 0.915622
+Time step: 176 | Execution time: 122s | Avg. FB: 1.486548 | Avg. EC: 0.915630
+Time step: 177 | Execution time: 112s | Avg. FB: 1.486576 | Avg. EC: 0.915643
+Time step: 178 | Execution time: 117s | Avg. FB: 1.486554 | Avg. EC: 0.915627
+Time step: 179 | Execution time: 118s | Avg. FB: 1.486471 | Avg. EC: 0.915596
+Time step: 42 | Execution time: 499s | Avg. FB: 1.476906 | Avg. EC: 0.912948
+Time step: 180 | Execution time: 120s | Avg. FB: 1.486429 | Avg. EC: 0.915554
+Time step: 181 | Execution time: 113s | Avg. FB: 1.486493 | Avg. EC: 0.915574
+Time step: 182 | Execution time: 113s | Avg. FB: 1.486460 | Avg. EC: 0.915558
+Time step: 183 | Execution time: 115s | Avg. FB: 1.486511 | Avg. EC: 0.915584
+Time step: 43 | Execution time: 483s | Avg. FB: 1.477313 | Avg. EC: 0.913152
+Time step: 184 | Execution time: 120s | Avg. FB: 1.486592 | Avg. EC: 0.915614
+Time step: 185 | Execution time: 114s | Avg. FB: 1.486585 | Avg. EC: 0.915622
+Time step: 186 | Execution time: 116s | Avg. FB: 1.486545 | Avg. EC: 0.915621
+Time step: 187 | Execution time: 116s | Avg. FB: 1.486534 | Avg. EC: 0.915636
+Time step: 44 | Execution time: 499s | Avg. FB: 1.477624 | Avg. EC: 0.913158
+Time step: 188 | Execution time: 120s | Avg. FB: 1.486509 | Avg. EC: 0.915640
+Time step: 189 | Execution time: 115s | Avg. FB: 1.486559 | Avg. EC: 0.915656
+Time step: 190 | Execution time: 115s | Avg. FB: 1.486612 | Avg. EC: 0.915679
+Time step: 191 | Execution time: 117s | Avg. FB: 1.486662 | Avg. EC: 0.915689
+Time step: 45 | Execution time: 492s | Avg. FB: 1.477998 | Avg. EC: 0.913400
+Time step: 192 | Execution time: 115s | Avg. FB: 1.486687 | Avg. EC: 0.915688
+Time step: 193 | Execution time: 120s | Avg. FB: 1.486671 | Avg. EC: 0.915677
+Time step: 194 | Execution time: 114s | Avg. FB: 1.486564 | Avg. EC: 0.915653
+Time step: 195 | Execution time: 114s | Avg. FB: 1.486602 | Avg. EC: 0.915658
+Time step: 196 | Execution time: 117s | Avg. FB: 1.486656 | Avg. EC: 0.915692
+Time step: 46 | Execution time: 494s | Avg. FB: 1.478183 | Avg. EC: 0.913497
+Time step: 197 | Execution time: 121s | Avg. FB: 1.486641 | Avg. EC: 0.915694
+Time step: 198 | Execution time: 113s | Avg. FB: 1.486665 | Avg. EC: 0.915702
+Time step: 199 | Execution time: 115s | Avg. FB: 1.486701 | Avg. EC: 0.915701
+Time step: 47 | Execution time: 485s | Avg. FB: 1.478223 | Avg. EC: 0.913473
+Time step: 48 | Execution time: 473s | Avg. FB: 1.478562 | Avg. EC: 0.913599
