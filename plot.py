@@ -18,6 +18,10 @@ AI_settings = {
 }
 
 k_settings = {
+    'None': {
+        'name': 'No recommendation algorithm',
+        'color': 'purple'
+    },
     '10': {
         'name': 'k=10',
         'color': 'royalblue'
@@ -26,7 +30,7 @@ k_settings = {
         'name': 'k=20',
         'color': 'darkgreen'
     },
-    '30': {
+    '110': {
         'name': 'k=30',
         'color': 'crimson'
     },
@@ -34,9 +38,9 @@ k_settings = {
         'name': 'k=40',
         'color': 'orange'
     },
-    '50': {
-        'name': 'k=50',
-        'color': 'purple'
+    '80': {
+        'name': 'k=80',
+        'color': 'red'
     }
 }
 
@@ -64,7 +68,7 @@ def line_chart(args):
         plt.plot(x, value[0], ms=6, color=AI_settings[AI]['color'], mec='black')
         # plt.fill_between(x, value[0], value[2], color=AI_settings[AI]['color'], alpha=0.2)
         legend.append(AI_settings[AI]['name'])
-    plt.legend(legend, fontsize=fontsize, loc='lower right', ncol=1, facecolor='white', fancybox=True, framealpha=0.4)
+    plt.legend(legend, fontsize=fontsize, ncol=1, facecolor='white', fancybox=True, framealpha=0.4)
     # plt.xticks(np.arange(0, length + 1, 25), fontsize=12)
     # plt.yticks(np.arange(dataset_config['y_min'], dataset_config['y_max'] + 1, dataset_config['y_interval']), fontsize=12)
     #
@@ -83,7 +87,7 @@ def line_chart(args):
             continue
         value = results[AI].T
         plt.plot(x, value[1][1:], ms=6, color=AI_settings[AI]['color'], mec='black')
-    plt.legend(legend, fontsize=fontsize, loc='lower right', ncol=1, facecolor='white', fancybox=True, framealpha=0.4)
+    plt.legend(legend, fontsize=fontsize, ncol=1, facecolor='white', fancybox=True, framealpha=0.4)
     # plt.xticks(np.arange(0, length + 1, 25), fontsize=12)
     # plt.yticks(np.arange(dataset_config['y_min'], dataset_config['y_max'] + 1, dataset_config['y_interval']), fontsize=12)
     #
@@ -97,6 +101,9 @@ def line_chart(args):
 
 def line_chart_diff_k(args):
     results = {}
+    path = './results/' + args.dataset + '_' + str(args.topic_num) + '_' + str(args.time_steps) + '_None_' + str(args.k) + '.txt'
+    print(path)
+    results['None'] = np.loadtxt(path)
     for k in k_settings.keys():
         path = './results/' + args.dataset + '_' + str(args.topic_num) + '_' + str(args.time_steps) + '_' + args.AI + '_' + str(k) + '.txt'
         print(path)
