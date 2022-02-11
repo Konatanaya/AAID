@@ -78,8 +78,8 @@ class environment:
                 ec.append(echo_chamber)
                 self.user_takes_action(user, time_step)
             execution_time = (datetime.datetime.now() - start).seconds
+
             result = [np.average(fb), np.average(ec)]
-            # result = [np.average(fb), quantification.quantify_echo_chamber(self.G)]
             self.results.append(result)
             print("Time step: %d | Execution time: %ds | Avg. FB: %f | Avg. EC: %f" % (time_step, execution_time, result[0], result[1]))
         self.save_result()

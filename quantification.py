@@ -25,7 +25,7 @@ def quantify_filter_bubble(G, user, topic_num):
     return qf_Ri
 
 
-def quantify_echo_chamber(G, user, time_step,topic_num):
+def quantify_echo_chamber(G, user, time_step, topic_num):
     Q = 0.
     if time_step > 0:
         user_pre = G.nodes[user]['preference']
@@ -36,6 +36,22 @@ def quantify_echo_chamber(G, user, time_step,topic_num):
             Q = np.average(Q)
 
     return Q
+
+
+# def quantify_echo_chamber_old(G, user, time_step, topic_num):
+#     Q = np.ones(topic_num)
+#     if time_step > 0:
+#         user_pre = 0.5 - G.nodes[user]['preference']
+#         neighbors = set([msg.sender for msg in G.nodes[user]['receiveList'][time_step - 1]])
+#         if len(neighbors) > 0:
+#             neighbors_pre = .5 - np.array([G.nodes[u]['preference'] for u in list(neighbors)]).reshape(-1, len(user_pre))
+#             Q = 1 - np.abs(user_pre - neighbors_pre)
+#             Q = np.average(Q, axis=0)
+#             # print(Q)
+#             # Q = user_pre.dot(neighbors_pre.T) / (np.linalg.norm(user_pre) * np.linalg.norm(neighbors_pre, axis=1))
+#             # Q = np.average(Q)
+#             # print(Q.shape)
+#     return Q
 
 # def quantify_echo_chamber(G, user, time_step,topic_num):
 #     Q = 0
