@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 def quantify_filter_bubble(G, user, topic_num):
     qf_Ri = 0
-    total_count_list = [v for k, v in G.nodes()[user]['receiveCount'].items()]
+    total_count_list = [v for k, v in G.nodes()[user]['sendCount'].items()]
     if len(total_count_list) > 0:
         matrix = np.concatenate(total_count_list).reshape((-1, topic_num))
         s = matrix.sum()

@@ -21,11 +21,7 @@ AI_settings = {
 }
 
 k_settings = {
-    'None': {
-        'name': 'No recommendation algorithm',
-        'color': 'crimson',
-        'marker': 'D'
-    },
+
     '10': {
         'name': 'k=10',
         'color': 'royalblue',
@@ -45,6 +41,11 @@ k_settings = {
         'name': 'k=80',
         'color': 'royalblue',
         'marker': 's'
+    },
+    'None': {
+        'name': 'No recommendation algorithm',
+        'color': 'crimson',
+        'marker': 'D'
     }
 }
 
@@ -91,7 +92,7 @@ def line_chart(args):
             continue
         value = results[AI].T
         plt.plot(x, value[1][1::10], ms=8, marker=AI_settings[AI]['marker'], color=AI_settings[AI]['color'], mec='black')
-    plt.legend(legend, fontsize=fontsize-4, ncol=1, facecolor='white', fancybox=True, framealpha=0.4)
+    plt.legend(legend, fontsize=fontsize-2, ncol=1, facecolor='white', fancybox=True, framealpha=0.4)
     plt.xticks(np.arange(0, args.time_steps+1, 25), fontsize=fontsize-4)
     plt.yticks(fontsize=fontsize-4)
     #
@@ -125,7 +126,7 @@ def line_chart_diff_k(args):
         plt.plot(x, value[0][::10], ms=8, marker=k_settings[k]['marker'], color=k_settings[k]['color'], mec='black')
         # plt.fill_between(x, value[0], value[2], color=k_settings[k]['color'], alpha=0.2)
         legend.append(k_settings[k]['name'])
-    plt.legend(legend, fontsize=fontsize-4, loc='lower right', ncol=1, facecolor='white', fancybox=True, framealpha=0.4)
+    plt.legend(legend, fontsize=fontsize-2, loc='lower right', ncol=1, facecolor='white', fancybox=True, framealpha=0.4)
     plt.xticks(np.arange(0, args.time_steps + 1, 25), fontsize=fontsize-4)
     plt.yticks(fontsize=fontsize-4)
     plt.xlabel('Time steps', fontsize=fontsize)
