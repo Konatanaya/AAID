@@ -42,6 +42,6 @@ if __name__ == '__main__':
         env.simulation()
     else:
         if args.plot_type == 'fb':
-            # plot.line_chart(args)
+            plot.line_chart(args)
             plot.line_chart_diff_k(args)
-            # plot.line_chart_new_echo(args)
+            plot.line_chart_new_echo(args)
